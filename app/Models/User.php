@@ -26,4 +26,9 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    public function timetables()
+    {
+        return $this->hasMany(Timetable::class, 'user_id');
+    }
 }
