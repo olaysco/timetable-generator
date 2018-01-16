@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -12,6 +12,8 @@ class Professor extends Model
      * @var string
      */
     protected $table = 'professors';
+
+
 
     /**
      * Declare relationship between a professor and the courses
