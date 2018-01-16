@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -12,6 +12,13 @@ class Course extends Model
      * @var string
      */
     protected $table = 'courses';
+
+    /**
+     * Relations of this model
+     * 
+     * @var array
+     */
+    protected $relations = ['professors', 'classes'];
 
     /**
      * Declare a relationship between this course and the
