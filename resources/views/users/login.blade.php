@@ -10,7 +10,7 @@
 		@include('partials.styles')
 		@yield('styles')
 
-		<title>Log In | Timetable</title>
+		<title>Sign In | Timetable</title>
     </head>
     
     <body class="login-page">
@@ -37,7 +37,7 @@
                                         </div>
 
                                         <div class="form-group">
-                                            <input type="submit" name="submit" value="Log in" class="btn btn-lg btn-block btn-custom">
+                                            <input type="submit" name="submit" value="SIGN IN" class="btn btn-lg btn-block btn-custom">
                                         </div>
                                     </form>
                                 </div>

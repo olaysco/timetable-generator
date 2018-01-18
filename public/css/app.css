@@ -48,3 +48,66 @@
     height: 40px;
     font-size: 1.2em;
 }
+
+.site-logo {
+    color: #FFFFFF !important;
+    font-size: 1.7em;
+    font-weight: bold;
+}
+
+.sidebar {
+   background: #FF6347;  
+   height: 100vh; 
+}
+
+/** Menu **/
+.site-logo-container {
+    background-color: #B22222;
+    height: 70px;
+}
+
+.menu {
+    margin-top: 50px;
+}
+
+.menu {
+    font-size: 1.2em;
+    list-style-type: none;
+    margin-bottom: 20px;
+    padding: 0px;
+    list-style-type: none;
+}
+
+.menu li {
+    color: #FFFAF0;
+    margin-bottom: 10px;
+    cursor: pointer;
+    padding: 18px;
+}
+
+.menu li .fa {
+    float: left;
+    margin-right: 10px;
+    width: 20px;
+}
+
+.menu li:hover, .menu li.active {
+    color: #FFFFFF;
+    background-color: #DC143C;
+    font-weight: bold;
+}
+
+.menu li.active{
+    border-left: 2px solid #FFFFFF;
+}
+
+.menu li a{
+    text-decoration: none;
+    color: #FFFAF0;
+}
+
+.page-title {
+    background-color: #FF6347;  
+    color: #FFFFFF;
+    height: 70px;
+}
