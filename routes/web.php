@@ -12,3 +12,4 @@
 */
 
 Route::view('/login', 'users.login');
+Route::view('/dashboard', 'dashboard.index');
