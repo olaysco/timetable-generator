@@ -5,12 +5,6 @@
 {{-- Bootstrap --}}
 <script src="{!! URL::asset('/vendors/bootstrap/dist/js/bootstrap.min.js') !!}"></script>
 
-{{-- Fast Click --}}
-<script src="{!! URL::asset('/vendors/fastclick/lib/fastclick.js') !!}"></script>
-
-{{-- iCheck--}}
-<script src="{!! URL::asset('/vendors/iCheck/icheck.min.js') !!}"></script>
-
 {{-- NProgress --}}
 <script src="{!! URL::asset('/vendors/nprogress/nprogress.js') !!}"></script>
 
@@ -35,12 +29,6 @@
 <script src="{!! URL::asset('/vendors/pnotify/dist/pnotify.buttons.js') !!}"></script>
 <script src="{!! URL::asset('/vendors/pnotify/dist/pnotify.nonblock.js') !!}"></script>
 
-{{-- Theme JS --}}
-<script src="{!! URL::asset('/vendors/gentelella/js/gentelella.min.js') !!}"></script>
-
- <!-- Canvas JS -->
- <script src="{!! URL::asset('/js/canvasjs.min.js') !!}"></script>
-
  <!-- datepicker -->
 <script src="{{ URL::asset('vendors/datepicker/bootstrap-datepicker.js') }}"></script>
 
@@ -49,3 +37,6 @@
 
 {{-- App JS --}}
 <script src="{!! URL::asset('/js/app.js') !!}"></script>
+
+{{-- App JS --}}
+<script src="{!! URL::asset('/js/resource.js') !!}"></script>
