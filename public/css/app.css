@@ -56,8 +56,8 @@
 }
 
 .sidebar {
-   background: #FF6347;  
-   height: 100vh; 
+   background: #FF6347;
+   height: 100vh;
 }
 
 /** Menu **/
@@ -107,7 +107,60 @@
 }
 
 .page-title {
-    background-color: #FF6347;  
+    background-color: #FF6347;
     color: #FFFFFF;
     height: 70px;
 }
+
+.menubar {
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+/** Pages */
+.no-data {
+    color: rgb(192, 192, 192);
+    font-weight: bold;
+    font-size: 3em;
+    margin-top: 100px;
+}
+
+.modal.custom-modal .modal-content {
+    border-radius: 0px;
+}
+
+/** Table */
+.table-head {
+    text-transform:uppercase;
+    text-align: left;
+    padding-top: 5px;
+    padding-bottom: 4px;
+    background: linear-gradient(rgb(229, 76, 16), rgb(172, 78, 41));
+    color: #FFFFFF;
+}
+
+tbody tr:nth-of-type(even) {
+    background-color: rgba(255, 255, 255, .1);
+}
+
+tbody tr:nth-of-type(odd) {
+    background-color: rgba(229, 76, 16, .1);
+}
+
+/** Redefinition for buttons */
+.btn-primary{
+    background: #5F9EA0;
+}
+
+.btn-primary:hover, .btn-primary:focus {
+    background: #008B8B;
+}
+
+.btn-danger {
+    background: #FF6347;
+}
+
+.btn-danger:hover {
+    background: #DC143C;
+}
+
