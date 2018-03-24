@@ -14,10 +14,6 @@
             </div>
 
             <div class="modal-body">
-                <div class="error-container">
-                    @include('partials.modal_errors')
-                </div>
-
                 <div class="row">
                     <div class="col-lg-10 col-md-10 col-sm-10 col-lg-offset-1 col-md-offset-1 col-sm-offset-1">
                         <p id="delete-message"></p>
@@ -27,13 +23,13 @@
 
             <div class="modal-footer">
                 <div class="row">
-                  <div class="col-lg-6 col-md-6 col-sm-6">
-                    <button type="submit" class="submit btn btn-danger btn-block" id="yes-button">Yes</button>
-                  </div>
+                    <div class="col-lg-6 col-md-6 col-sm-6">
+                        <button type="button" class="cancel btn btn-default btn-block" data-dismiss="modal" id="no-button">No</button>
+                    </div>
 
-                  <div class="col-lg-6 col-md-6 col-sm-6">
-                    <button type="button" class="cancel btn btn-default btn-block" data-dismiss="modal" id="no-button">No</button>
-                  </div>
+                    <div class="col-lg-6 col-md-6 col-sm-6">
+                        <button type="submit" class="submit btn btn-danger btn-block" id="yes-button">Yes</button>
+                    </div>
                 </div>
             </div>
         </div>

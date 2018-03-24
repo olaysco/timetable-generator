@@ -14,5 +14,8 @@
 Route::view('/login', 'users.login');
 Route::view('/dashboard', 'dashboard.index');
 
-// Routes for rooms management
+// Routes for rooms module
 Route::resource('rooms', 'RoomsController');
+
+// Routes for courses module
+Route::resource('courses', 'CoursesController');

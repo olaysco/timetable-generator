@@ -8,14 +8,21 @@ class Course extends Model
 {
     /**
      * The DB table used by this model
-     * 
+     *
      * @var string
      */
     protected $table = 'courses';
 
     /**
+     * The fields that should not be mass assigned
+     *
+     * @var array
+     */
+    protected $guarded = ['id'];
+
+    /**
      * Relations of this model
-     * 
+     *
      * @var array
      */
     protected $relations = ['professors', 'classes'];
@@ -23,7 +30,7 @@ class Course extends Model
     /**
      * Declare a relationship between this course and the
      * professors that teach it
-     * 
+     *
      * @return Illuminate\Database\Eloquent
      */
     public function professors()
@@ -34,7 +41,7 @@ class Course extends Model
     /**
      * Declare a relationship between this course and the classes
      * that offer it
-     * 
+     *
      * @return Illuminate\Database\Eloquent
      */
     public function classes()

@@ -37,6 +37,7 @@ Resource.prototype.init = function() {
     // Set up event listener for delete button clicks
     $(document).on('click', '.resource-delete-btn', function(){
         var resourceId = $(this).data('id');
+        self.clearForm();
         self.initializeDeleteModal(resourceId);
     });
 };
