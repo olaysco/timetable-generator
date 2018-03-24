@@ -63,7 +63,7 @@ var App = {
         $('#confirm-dialog').modal('hide');
     },
 
-    setDeleteForm: function (actionURL, referenceId, header, attributes) {
+    setDeleteForm: function (actionURL, header, attributes) {
         var form = $('#confirm-dialog .delete-form');
 
         if (header) {
@@ -77,7 +77,6 @@ var App = {
         }
 
         form.attr('action', actionURL);
-        form.attr('id', referenceId);
     },
 
     submitForm: function (form, callback, $errorContainer, hideModal = true) {
@@ -117,6 +116,9 @@ var App = {
                 $(form)[0].reset();
 
                 $(form).find('.image-placeholder').attr('src', '/images/item_image_placeholder.png');
+
+                $('.modal-error-div').find('ul').html('');
+                $('#errors-container').hide();
             },
 
             error: function (response, text_status, xhr) {

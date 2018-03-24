@@ -35,7 +35,11 @@ class RoomsController extends Controller
      */
     public function index(Request $request)
     {
-        $rooms = $this->service->all();
+        $rooms = $this->service->all([
+            'order_by' => 'name',
+            'paginate' => 'true',
+            'per_page' => 20
+        ]);
 
         if ($request->ajax()) {
             return view('rooms.table', compact('rooms'));
@@ -53,11 +57,15 @@ class RoomsController extends Controller
     public function store(Request $request)
     {
         $rules = [
-            'name' => 'required',
+            'name' => 'required|unique:rooms,name',
             'capacity' => 'required|numeric'
         ];
 
-        $this->validate($request, $rules);
+        $messages = [
+            'name.unique' => 'This room already exists'
+        ];
+
+        $this->validate($request, $rules, $messages);
 
         $room = $this->service->store($request->all());
 
@@ -76,7 +84,7 @@ class RoomsController extends Controller
      */
     public function show($id, Request $request)
     {
-        $room = $this->service->show($id);
+        $room = Room::find($id);
 
         if ($room) {
             return Response::json($room, 200);
@@ -93,6 +101,17 @@ class RoomsController extends Controller
      */
     public function update($id, Request $request)
     {
+        $rules = [
+            'name' => 'required|unique:rooms,name,' . $id,
+            'capacity' => 'required|numeric'
+        ];
+
+        $messages = [
+            'name.unique' => 'This room already exists'
+        ];
+
+        $this->validate($request, $rules, $messages);
+
         $room = $this->service->show($id);
 
         if (!$room) {
@@ -102,5 +121,20 @@ class RoomsController extends Controller
         $room = $this->service->update($id, $request->all());
 
         return Response::json(['message' => 'Room updated'], 200);
+    }
+
+    public function destroy($id)
+    {
+        $room = Room::find($id);
+
+        if (!$room) {
+            return Response::json(['error' => 'Room not found'], 404);
+        }
+
+        if ($this->service->delete($id)) {
+            return Response::json(['message' => 'Room has been deleted'], 200);
+        } else {
+            return Response::json(['error' => 'An unknown system error occurred'], 500);
+        }
     }
 }

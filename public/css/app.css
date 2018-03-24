@@ -164,3 +164,33 @@ tbody tr:nth-of-type(odd) {
     background: #DC143C;
 }
 
+/** Pagination buttons **/
+.pagination>.active>a,
+.pagination>.active>a:focus,
+.pagination>.active>a:hover,
+.pagination>.active>span,
+.pagination>.active>span:focus,
+.pagination>.active>span:hover {
+    background: #DC143C;
+    border: 1px solid #DC143C;
+}
+
+.pagination>li>a,
+.pagination>li>span {
+    background: rgba(229, 76, 16, .1);
+    color: #008B8B;
+}
+
+.pagination>.disabled>a,
+.pagination>.disabled>a:focus,
+.pagination>.disabled>a:hover,
+.pagination>.disabled>span,
+.pagination>.disabled>span:focus,
+.pagination>.disabled>span:hover {
+    background: rgba(229, 76, 16, .1);
+}
+
+.paginationn>li>a:hover,
+.pagination>li>span:hover {
+}
+

@@ -33,7 +33,7 @@ abstract class AbstractService
         if (isset($data['order_by']) && $this->tableHasColumn($data['order_by'])) {
             $ranking = isset($data['ranking']) ? $data['ranking'] : 'asc';
 
-            $query->orderBy($data['order_by'], $this->getRanking($ranking));
+            $query = $query->orderBy($data['order_by'], $this->getRanking($ranking));
         }
 
         // Load resources with their relations
@@ -193,7 +193,7 @@ abstract class AbstractService
      */
     protected function getRanking($ranking)
     {
-        return strtolower($ranking) === 'desc' ? 'desc' : 'asc';
+        return strtolower($ranking) === 'desc' ? 'DESC' : 'ASC';
     }
 
     /**

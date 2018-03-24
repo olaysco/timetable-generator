@@ -22,6 +22,11 @@
                 @endforeach
             </tbody>
         </table>
+         <div id="pagination">
+            {!!
+                $rooms->render()
+            !!}
+        </div>
         @else
         <div class="no-data text-center">
             <p>No rooms added yet</p>
