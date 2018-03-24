@@ -11,19 +11,33 @@ Resource.prototype.init = function() {
 
     // Set up event listener for resource add button
     $(document).on('click', '#resource-add-button', function () {
+        self.clearForm();
         self.initializeAddModal();
     });
 
-    // Set up event listener for resource form submissions
+    // Set up event listener for resource add/edit form submissions
     $(document).on('submit', '#resource-form', function (event) {
         event.preventDefault();
-        self.submitForm();
+        self.submitResourceForm();
+    });
+
+    // Set up event listener for resource delete form submissions
+    $(document).on('submit', '#resource-delete-form', function(event){
+        event.preventDefault();
+        self.submitDeleteForm();
     });
 
     // Set up event listener for update button clicks
     $(document).on('click', '.resource-update-btn', function() {
         var resourceId = $(this).data('id');
+        self.clearForm();
         self.initializeUpdateModal(resourceId);
+    });
+
+    // Set up event listener for delete button clicks
+    $(document).on('click', '.resource-delete-btn', function(){
+        var resourceId = $(this).data('id');
+        self.initializeDeleteModal(resourceId);
     });
 };
 
@@ -78,6 +92,16 @@ Resource.prototype.initializeUpdateModal = function(resourceId) {
 };
 
 /**
+ * Set up delete confirmation modal
+ *
+ * @param {int} resourceId The resource Id
+ */
+Resource.prototype.initializeDeleteModal = function(resourceId) {
+    App.setDeleteForm(this.baseUrl + '/' + resourceId, 'Delete ' + this.resourceName);
+    App.showConfirmDialog("Do you want to delete this " + this.resourceName.toLowerCase() + "?");
+};
+
+/**
  * Prepare modal for an update
  * Implementation to be done uniquely for each resource class
  *
@@ -89,11 +113,27 @@ Resource.prototype.prepareForUpdate = function(resource) {
 /**
  * Submit form for adding or updating resource
  */
-Resource.prototype.submitForm = function() {
+Resource.prototype.submitResourceForm = function() {
     App.submitForm($('#resource-form').get(0), this.refreshPage, $('#errors-container'));
 };
 
-/**5
+/**
+ * Submit form for adding or updating resource
+ */
+Resource.prototype.submitDeleteForm = function () {
+    App.submitForm($('#resource-delete-form').get(0), this.refreshPage, null);
+};
+
+/**
+ * Clear the resource form
+ */
+Resource.prototype.clearForm = function() {
+    $('#resource-form').get(0).reset();
+    $('.modal-error-div').find('ul').html('');
+    $('#errors-container').hide();
+};
+
+/**
  * Refresh page for a resource after
  */
 Resource.prototype.refreshPage = function() {

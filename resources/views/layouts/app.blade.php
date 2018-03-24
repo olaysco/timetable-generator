@@ -12,8 +12,8 @@
 
 		<title>@yield('title') | Timetable</title>
     </head>
-    
-    <body> 
+
+    <body>
         <div class="container-fluid">
             <div class="row">
                 @include('partials.sidebar')
@@ -21,6 +21,9 @@
                 @yield('content')
             </div>
         </div>
+
+        @include('partials.confirm_dialog')
+
         <!-- Scripts -->
         @include('partials.scripts')
         @yield('scripts')

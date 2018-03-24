@@ -15,7 +15,4 @@ Route::view('/login', 'users.login');
 Route::view('/dashboard', 'dashboard.index');
 
 // Routes for rooms management
-Route::get('rooms', 'RoomsController@index');
-Route::post('rooms', 'RoomsController@store');
-Route::get('/rooms/{id}', 'RoomsController@show');
-Route::put('/rooms/{id}', 'RoomsController@update');
+Route::resource('rooms', 'RoomsController');
