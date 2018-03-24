@@ -118,7 +118,6 @@ var App = {
                 $(form).find('.image-placeholder').attr('src', '/images/item_image_placeholder.png');
 
                 $('.modal-error-div').find('ul').html('');
-                $('#errors-container').hide();
             },
 
             error: function (response, text_status, xhr) {
@@ -137,6 +136,7 @@ var App = {
                         .delay(15000).queue(function () {
                             $(this).addClass('hidden').dequeue();
                         });
+                    $('#errors-container').show();
                 }
 
                 var text = (response.status == 422) ?
@@ -210,6 +210,11 @@ var App = {
 
         $('[name=logo]').change(App.PreviewImage);
         $('[name=image]').change(App.PreviewImage);
+    },
+
+    extend: function(class1, class2) {
+        class2.prototype = Object.create(class1.prototype);
+        class1.prototype.constructor = class1;
     }
 };
 

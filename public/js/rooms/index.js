@@ -5,8 +5,7 @@ function Room(url, resourceName) {
     Resource.call(this, url, resourceName);
 }
 
-Room.prototype = Object.create(Resource.prototype);
-Room.prototype.constructor = Room;
+App.extend(Resource, Room);
 
 Room.prototype.prepareForUpdate =  function(resource) {
     $('input[name=name]').val(resource.name);
