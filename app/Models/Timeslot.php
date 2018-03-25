@@ -18,14 +18,6 @@ class Timeslot extends Model
      */
     public static function createTimePeriod($from, $to)
     {
-        if (strlen($from) < 5) {
-            $from = '0' . $from;
-        }
-
-        if (strlen($to) < 5) {
-            $from = '0' . $to;
-        }
-
         return $from . ' - ' . $to;
     }
 }

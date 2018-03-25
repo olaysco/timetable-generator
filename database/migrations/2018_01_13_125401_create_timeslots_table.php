@@ -15,14 +15,8 @@ class CreateTimeslotsTable extends Migration
     {
         Schema::create('timeslots', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('day_id')->unsigned();
             $table->string('time');
             $table->timestamps();
-
-            $table->foreign('day_id')
-                ->references('id')
-                ->on('days')
-                ->onDelete('cascade');
         });
     }
 

@@ -21,18 +21,6 @@
                         <div class="col-lg-10 col-md-10 col-sm-10 col-lg-offset-1 col-md-offset-1 col-sm-offset-1">
                             {{ csrf_field() }}
                             <div class="form-group">
-                                <label>Day</label>
-
-                                <div class="select2-wrapper">
-                                    <select name="day_id" class="form-control select2">
-                                         @foreach($days as $day)
-                                         <option value="{{ $day->id }}">{{ $day->name }}</option>
-                                         @endforeach
-                                    </select>
-                                </div>
-                            </div>
-
-                            <div class="form-group">
                                 <label>Time</label>
 
                                 <div class="row">
@@ -40,7 +28,9 @@
                                         <div class="select2-wrapper">
                                             <select name="from" class="form-control select2">
                                                 @for($i = 0; $i <= 23; $i++)
-                                                <option value="{{ $i . ":00" }}">{{ $i . ":00" }}</option>
+                                                <option value="{{ (($i < 10) ? "0" : "") . $i . ":00" }}">
+                                                    {{ (($i < 10) ? "0" : "") . $i . ":00" }}
+                                                </option>
                                                 @endfor
                                             </select>
                                         </div>
@@ -50,7 +40,9 @@
                                         <div class="select2-wrapper">
                                             <select name="to" class="form-control select2">
                                                 @for($i = 0; $i <= 23; $i++)
-                                                <option value="{{ $i . ":00" }}">{{ $i . ":00" }}</option>
+                                                <option value="{{ (($i < 10) ? "0" : "") . $i . ":00" }}">
+                                                    {{ (($i < 10) ? "0" : "") . $i . ":00" }}
+                                                </option>
                                                 @endfor
                                             </select>
                                         </div>
