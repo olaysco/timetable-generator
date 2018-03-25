@@ -35,13 +35,13 @@ class TimeslotsController extends Controller
      */
     public function index(Request $request)
     {
-        $days = Day::all();
+        $timeslots = $this->service->all();
 
         if ($request->ajax()) {
-            return view('timeslots.table', compact('days'));
+            return view('timeslots.table', compact('timeslots'));
         }
 
-        return view('timeslots.index', compact('days'));
+        return view('timeslots.index', compact('timeslots'));
     }
 
     /**
@@ -52,7 +52,6 @@ class TimeslotsController extends Controller
     public function store(Request $request)
     {
         $rules = [
-            'day_id' => 'required',
             'from' => 'required|before:to',
             'to' => 'required|after:from'
         ];
@@ -64,8 +63,7 @@ class TimeslotsController extends Controller
 
         $this->validate($request, $rules, $messages);
 
-        $exists = Timeslot::where('day_id', $request->day_id)->where('time',
-            Timeslot::createTimePeriod($request->from, $request->to))->first();
+        $exists = Timeslot::where('time', Timeslot::createTimePeriod($request->from, $request->to))->first();
 
         if ($exists) {
             return Response::json(['errors' => ['This timeslot already exists']], 422);
@@ -80,6 +78,26 @@ class TimeslotsController extends Controller
             return Response::json(['message' => 'Timeslot has been added'], 200);
         } else {
             return Response::json(['error' => 'A system error occurred'], 500);
+        }
+    }
+
+    /**
+     * Get the timeslot with the given ID
+     *
+     * @param int $id The timeslot id
+     */
+    public function show($id)
+    {
+        $timeslot = Timeslot::find($id);
+
+        if ($timeslot) {
+            $timeParts = explode("-", $timeslot->time);
+            $timeslot->from = $timeParts[0];
+            $timeslot->to = $timeParts[1];
+
+            return Response::json($timeslot, 200);
+        } else {
+            return Response::json(['error' => 'Timeslot not found'], 404);
         }
     }
 }
