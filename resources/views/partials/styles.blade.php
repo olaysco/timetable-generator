@@ -34,4 +34,8 @@
 <link href="{!! URL::asset('/css/app.css') !!}" rel="stylesheet">
 
 <!-- Date Picker -->
-  <link rel="stylesheet" href="{{ URL::asset('vendors/datepicker/datepicker3.css') }}">
+<link rel="stylesheet" href="{{ URL::asset('vendors/datepicker/datepicker3.css') }}">
+
+<!-- Time Picker -->
+<link rel="stylesheet" href="{{ URL::asset('vendors/timepicker/bootstrap-timepicker.min.css') }}">
+

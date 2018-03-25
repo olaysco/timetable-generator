@@ -19,3 +19,6 @@ Route::resource('rooms', 'RoomsController');
 
 // Routes for courses module
 Route::resource('courses', 'CoursesController');
+
+// Routes for timeslots module
+Route::resource('timeslots', 'TimeslotsController');
