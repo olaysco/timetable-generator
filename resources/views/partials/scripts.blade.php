@@ -32,6 +32,9 @@
  <!-- datepicker -->
 <script src="{{ URL::asset('vendors/datepicker/bootstrap-datepicker.js') }}"></script>
 
+<!-- timepicker -->
+<script src="{{ URL::asset('vendors/timepicker/bootstrap-timepicker.min.js') }}"></script>
+
  <!-- Tokenizer -->
 <script src="{{ URL::asset('vendors/tokenizer/bootstrap-tokenfield.min.js') }}"></script>
 
