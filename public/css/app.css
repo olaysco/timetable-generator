@@ -14,6 +14,10 @@
     margin-top: 300px;
 }
 
+#activation-form-container {
+    margin-top: 100px;
+}
+
 .login-form-header {
     background: #B0262E;
     border: 1px solid #B0262E;
