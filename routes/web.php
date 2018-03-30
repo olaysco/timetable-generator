@@ -11,8 +11,10 @@
 |
 */
 
-Route::view('/login', 'users.login');
+Route::view('/', 'dashboard.index');
 Route::view('/dashboard', 'dashboard.index');
+
+Auth::routes();
 
 // Routes for rooms module
 Route::resource('rooms', 'RoomsController');
@@ -22,3 +24,9 @@ Route::resource('courses', 'CoursesController');
 
 // Routes for timeslots module
 Route::resource('timeslots', 'TimeslotsController');
+
+// User account activation routes
+Route::get('/users/activate', 'UsersController@showActivationPage');
+Route::post('/users/activate', 'UsersController@activateUser');
+
+Route::get('/home', 'HomeController@index')->name('home');
