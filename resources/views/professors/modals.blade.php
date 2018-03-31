@@ -30,7 +30,7 @@
                                 <label>Courses</label>
 
                                 <div class="select2-wrapper">
-                                    <select name="course_ids[]" class="form-control select2" multiple>
+                                    <select id="courses-select" name="course_ids[]" class="form-control select2" multiple>
                                         <option value="">Select courses</option>
                                         @foreach ($courses as $course)
                                          <option value="{{ $course->id }}">{{ $course->name }}</option>
@@ -43,11 +43,11 @@
                                 <label>Unavailable periods</label>
 
                                 <div class="select2-wrapper">
-                                    <select name="unavailable_periods[]" class="form-control select2" multiple>
+                                    <select id="periods-select" name="unavailable_periods[]" class="form-control select2" multiple>
                                         <option value="">Select unavailable periods for this lecturer</option>
                                         @foreach ($days as $day)
                                             @foreach ($timeslots as $timeslot)
-                                                <option value="{{ $day->id  }}, {{ $timeslot->id }}">
+                                                <option value="{{ $day->id  }},{{ $timeslot->id }}">
                                                     {{ $day->name . " " . $timeslot->time }}
                                                 </option>
                                             @endforeach

@@ -8,7 +8,10 @@ function Professor(url, resourceName) {
 App.extend(Resource, Professor);
 
 Professor.prototype.prepareForUpdate = function (resource) {
+    console.log(resource);
     $('input[name=name]').val(resource.name);
+    $('#courses-select').val(resource.course_ids).change();
+    $('#periods-select').val(resource.periods).change();
 };
 
 window.addEventListener('load', function () {
