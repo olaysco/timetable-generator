@@ -208,6 +208,11 @@ var App = {
             }
         });
 
+        $(document).on('click', '.menu-link', function(event){
+            var url = $(event.target).find('a').attr('href');
+            window.location.href = url;
+        });
+
         $('[name=logo]').change(App.PreviewImage);
         $('[name=image]').change(App.PreviewImage);
     },
