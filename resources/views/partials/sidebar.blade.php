@@ -9,25 +9,22 @@
         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
             <ul class="menu">
                 <?php $page = Request::segment(1); ?>
-                <li class="{{ ($page == 'dashboard') ? 'active' : '' }}">
+                <li class="menu-link {{ ($page == 'dashboard') ? 'active' : '' }}">
                     <a href="/dashboard"><span class="fa fa-dashboard"></span><span class="text">Dashboard</span></a>
                 </li>
-                <li class="{{ ($page == 'rooms') ? 'active' : '' }}">
+                <li class="menu-link {{ ($page == 'rooms') ? 'active' : '' }}">
                     <a href="/rooms"><span class="fa fa-home"></span><span class="text">Rooms</span></a>
                 </li>
-                <li class="{{ ($page == 'courses') ? 'active' : '' }}">
+                <li class="menu-link {{ ($page == 'courses') ? 'active' : '' }}">
                     <a href="/courses"><span class="fa fa-book"></span><span class="text">Courses</span></a>
                 </li>
-                <li class="{{ ($page == 'professors') ? 'active' : '' }}">
+                <li class="menu-link {{ ($page == 'professors') ? 'active' : '' }}">
                     <a href="/professors"><span class="fa fa-graduation-cap"></span><span class="text">Professors</span></a>
                 </li>
-                <li class="{{ ($page == 'timeslots') ? 'active' : '' }}">
+                <li class="menu-link {{ ($page == 'timeslots') ? 'active' : '' }}">
                     <a href="/timeslots"><span class="fa fa-clock-o"></span><span class="text">Timeslots</span></a>
                 </li>
-                <li class="{{ ($page == 'days') ? 'active' : '' }}">
-                    <a href="/days"><span class="fa fa-calendar"></span><span class="text">Days</span></a>
-                </li>
-                <li class="{{ ($page == 'users') ? 'active' : '' }}">
+                <li class="menu-link {{ ($page == 'users') ? 'active' : '' }}">
                     <a href="/users"><span class="fa fa-user"></span><span class="text">Users</span></a>
                 </li>
             </ul>
