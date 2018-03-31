@@ -79,4 +79,67 @@ class ProfessorsController extends Controller
             return Response::json(['error' => 'An unknown system error occurred'], 500);
         }
     }
+
+    /**
+     * Get and return data about a professor
+     *
+     * @param int $id Id of professor
+     * @return Illuminate\Http\Response The data as a JSON response
+     */
+    public function show($id)
+    {
+        $professor = $this->service->show($id);
+
+        if ($professor) {
+            return Response::json($professor, 200);
+        } else {
+            return Response::json(['errors' => ['Professor not found']], 404);
+        }
+    }
+
+    /**
+     * Update the professor with the given id
+     *
+     * @param int $id Id of the professor
+     * @param Illuminate\Http\Request $request The HTTP request
+     */
+    public function update($id, Request $request)
+    {
+        $professor = Professor::find($id);
+
+        if (!$professor) {
+            return Response::json(['errors' => ['Professor does not exist']], 404);
+        }
+
+        $rules = [
+            'name' => 'required',
+        ];
+
+        $this->validate($request, $rules);
+
+        $professor = $this->service->update($id, $request->all());
+
+        return Response::json(['message' => 'Professor updated'], 200);
+    }
+
+
+    /**
+     * Delete the professor with the given id
+     *
+     * @param int $id Id of professor to delete
+     */
+    public function destroy($id)
+    {
+        $professor = Professor::find($id);
+
+        if (!$professor) {
+            return Response::json(['error' => 'Professor not found'], 404);
+        }
+
+        if ($this->service->delete($id)) {
+            return Response::json(['message' => 'Professor has been deleted'], 200);
+        } else {
+            return Response::json(['error' => 'An unknown system error occurred'], 500);
+        }
+    }
 }
