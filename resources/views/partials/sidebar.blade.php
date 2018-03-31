@@ -21,6 +21,9 @@
                 <li class="menu-link {{ ($page == 'professors') ? 'active' : '' }}">
                     <a href="/professors"><span class="fa fa-graduation-cap"></span><span class="text">Professors</span></a>
                 </li>
+                <li class="menu-link {{ ($page == 'classes') ? 'active' : '' }}">
+                    <a href="/classes"><span class="fa fa-users"></span><span class="text">Classes</span></a>
+                </li>
                 <li class="menu-link {{ ($page == 'timeslots') ? 'active' : '' }}">
                     <a href="/timeslots"><span class="fa fa-clock-o"></span><span class="text">Timeslots</span></a>
                 </li>
