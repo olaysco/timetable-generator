@@ -54,10 +54,11 @@ class UsersController extends Controller
 
         $user->update([
             'username' => $request->username,
-            'name' => 'required',
+            'name' => $request->name,
             'password' => bcrypt($request->password),
             'security_question_id' => $request->security_question_id,
-            'security_question_answer' => $request->security_question_answer
+            'security_question_answer' => $request->security_question_answer,
+            'activated' => true
         ]);
 
         return redirect('/');
