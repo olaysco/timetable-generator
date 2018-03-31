@@ -17,6 +17,7 @@ class CreateUnavailableTimeslotsTable extends Migration
             $table->increments('id');
             $table->integer('professor_id')->unsigned();
             $table->integer('timeslot_id')->unsigned();
+            $table->integer('day_id')->unsigned();
             $table->timestamps();
 
             $table->foreign('professor_id')
@@ -27,6 +28,11 @@ class CreateUnavailableTimeslotsTable extends Migration
             $table->foreign('timeslot_id')
                 ->references('id')
                 ->on('timeslots')
+                ->onDelete('cascade');
+
+            $table->foreign('day_id')
+                ->references('id')
+                ->on('days')
                 ->onDelete('cascade');
         });
     }
