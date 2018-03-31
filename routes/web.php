@@ -28,6 +28,9 @@ Route::resource('courses', 'CoursesController');
 // Routes for timeslots module
 Route::resource('timeslots', 'TimeslotsController');
 
+// Routes for professors module
+Route::resource('professors', 'ProfessorsController');
+
 // User account activation routes
 Route::get('/users/activate', 'UsersController@showActivationPage');
 Route::post('/users/activate', 'UsersController@activateUser');

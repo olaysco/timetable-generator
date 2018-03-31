@@ -4,9 +4,9 @@
         <table class="table table-bordered">
             <thead>
                 <tr class="table-head">
-                    <th style="width: 50%">Name</th>
-                    <th style="width: 40%">Courses Taught</th>
-                    <th>Unavailable Periods</th>
+                    <th style="width: 30%">Name</th>
+                    <th style="width: 30%">Courses Taught</th>
+                    <th style="width: 30%">Unavailable Periods</th>
                     <th>Actions</th>
                 </tr>
             </thead>
@@ -27,9 +27,9 @@
                         @endif
                     </td>
                     <td>
-                        @if (count($professor->unavailable_periods))
+                        @if (count($professor->unavailable_timeslots))
                             <ul>
-                                @foreach ($professor->unavailable_periods as $period)
+                                @foreach ($professor->unavailable_timeslots as $period)
                                     <li>{{ $period->day->name . " " . $period->timeslot->time }}</li>
                                 @endforeach
                             </ul>
