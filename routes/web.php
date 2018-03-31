@@ -11,8 +11,11 @@
 |
 */
 
-Route::view('/', 'dashboard.index');
-Route::view('/dashboard', 'dashboard.index');
+Route::get('/', function() {
+    return redirect('/dashboard');
+});
+
+Route::get('/dashboard', 'DashboardController@index');
 
 Auth::routes();
 
