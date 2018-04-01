@@ -27,15 +27,34 @@
                             </div>
 
                             <div class="form-group">
-                                <label>Courses</label>
+                                <label>Courses <i class="fa fa-plus side-icon" title="Add Course" id="course-add"></i></label>
 
-                                <div class="select2-wrapper">
-                                    <select id="courses-select" name="course_ids[]" class="form-control select2" multiple>
-                                        <option value="">Select courses</option>
-                                        @foreach ($courses as $course)
-                                         <option value="{{ $course->id }}">{{ $course->name }}</option>
-                                        @endforeach
-                                    </select>
+                                <div id="courses-container">
+                                    <div class="row">
+                                        <div class="col-md-7 col-sm-7 col-xs-12">
+                                            Course
+                                        </div>
+                                        <div class="col-md-5 col-sm-5 col-xs-12">
+                                            Meetings Per Week
+                                        </div>
+                                    </div>
+
+                                    <div class="row" style="margin-bottom: 5px">
+                                        <div class="col-md-7 col-sm-7 col-xs-12">
+                                            <div class="select2-wrapper">
+                                                <select id="courses-select" class="form-control course-select select2">
+                                                    <option value="" selected>Select a course</option>
+                                                    @foreach ($courses as $course)
+                                                    <option value="{{ $course->id }}">{{ $course->name }}</option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-4 col-sm-4 col-xs-10">
+                                            <input type="number" class="form-control">
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
 
@@ -74,6 +93,29 @@
                     </div>
                 </div>
             </form>
+        </div>
+    </div>
+</div>
+
+<div id="course-template" class="hidden">
+     <div class="row" id="course-{ID}-container" style="margin-top: 5px">
+        <div class="col-md-7 col-sm-7 col-xs-12">
+            <div class="select2-wrapper">
+                <select id="courses-select" class="form-control course-select select2">
+                    <option value="" selected>Select a course</option>
+                    @foreach ($courses as $course)
+                    <option value="{{ $course->id }}">{{ $course->name }}</option>
+                    @endforeach
+                </select>
+            </div>
+        </div>
+
+        <div class="col-md-4 col-sm-4 col-xs-10">
+            <input type="number" class="form-control">
+        </div>
+
+        <div class="col-md-1 col-sm-1 col-xs-2">
+            <span class="fa fa-close side-icon course-remove" title="Remove Course" data-id="{ID}"></span>
         </div>
     </div>
 </div>
