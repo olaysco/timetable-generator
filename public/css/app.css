@@ -218,3 +218,8 @@ tbody tr:nth-of-type(odd) {
     height: 36px;
 }
 
+.side-icon {
+    margin-top: 10px;
+    cursor: pointer;
+}
+
