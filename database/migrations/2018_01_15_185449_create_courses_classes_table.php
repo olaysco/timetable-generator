@@ -17,6 +17,7 @@ class CreateCoursesClassesTable extends Migration
             $table->increments('id');
             $table->integer('course_id')->unsigned();
             $table->integer('class_id')->unsigned();
+            $table->integer('meetings')->unsigned();
             $table->timestamps();
 
             $table->foreign('course_id')

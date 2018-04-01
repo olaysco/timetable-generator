@@ -31,6 +31,9 @@ Route::resource('timeslots', 'TimeslotsController');
 // Routes for professors module
 Route::resource('professors', 'ProfessorsController');
 
+// Routes for college classes
+Route::resource('classes', 'CollegeClassesController');
+
 // User account activation routes
 Route::get('/users/activate', 'UsersController@showActivationPage');
 Route::post('/users/activate', 'UsersController@activateUser');
