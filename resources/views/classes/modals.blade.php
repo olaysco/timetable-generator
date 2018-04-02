@@ -98,7 +98,7 @@
 </div>
 
 <div id="course-template" class="hidden">
-     <div class="row course-form" id="course-{ID}-container" style="margin-bottom: 5px">
+     <div class="row course-form appended-course" id="course-{ID}-container" style="margin-bottom: 5px">
         <div class="col-md-7 col-sm-7 col-xs-12">
             <div class="select2-wrapper">
                 <select class="form-control course-select" name="course-{ID}">

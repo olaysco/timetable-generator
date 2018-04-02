@@ -42,4 +42,29 @@ class CollegeClassesService extends AbstractService
 
         return $class;
     }
+
+    /**
+     * Update the class with the given id
+     *
+     * @param int $id The ID of the class
+     * @param array $data Data
+     */
+    public function update($id, $data = [])
+    {
+        $class = CollegeClass::find($id);
+
+        if (!$class) {
+            return null;
+        }
+
+        $class->update([
+            'name' => $data['name'],
+            'size' => $data['size']
+        ]);
+
+        $class->unavailable_rooms()->sync($data['unavailable_rooms']);
+        $class->courses()->sync($data['courses']);
+
+        return $class;
+    }
 }

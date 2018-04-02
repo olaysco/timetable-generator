@@ -91,9 +91,6 @@ var App = {
             actionURL = form.url;
         }
 
-        for (var value of formData.values()) {
-            console.log(value);
-        }
         NProgress.start();
 
         // Submit form via ajax
