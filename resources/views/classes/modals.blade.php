@@ -29,16 +29,16 @@
                             <div class="form-group">
                                 <label>Courses <i class="fa fa-plus side-icon" title="Add Course" id="course-add"></i></label>
 
-                                <div id="courses-container">
-                                    <div class="row">
-                                        <div class="col-md-7 col-sm-7 col-xs-12">
-                                            Course
-                                        </div>
-                                        <div class="col-md-5 col-sm-5 col-xs-12">
-                                            Meetings Per Week
-                                        </div>
+                                <div class="row">
+                                    <div class="col-md-7 col-sm-7 col-xs-12">
+                                        Course
                                     </div>
+                                    <div class="col-md-5 col-sm-5 col-xs-12">
+                                        Meetings Per Week
+                                    </div>
+                                </div>
 
+                                <div id="courses-container">
                                     <div class="row course-form" style="margin-bottom: 5px">
                                         <div class="col-md-7 col-sm-7 col-xs-12">
                                             <div class="select2-wrapper">
@@ -52,7 +52,7 @@
                                         </div>
 
                                         <div class="col-md-4 col-sm-4 col-xs-10">
-                                            <input type="number" class="form-control course-meetings">
+                                            <input type="number" class="form-control course-meetings" name="course-1-meetings">
                                         </div>
                                     </div>
                                 </div>
@@ -98,7 +98,7 @@
 </div>
 
 <div id="course-template" class="hidden">
-     <div class="row course-form" id="course-{ID}-container" style="margin-top: 5px">
+     <div class="row course-form" id="course-{ID}-container" style="margin-bottom: 5px">
         <div class="col-md-7 col-sm-7 col-xs-12">
             <div class="select2-wrapper">
                 <select class="form-control course-select" name="course-{ID}">
@@ -111,7 +111,7 @@
         </div>
 
         <div class="col-md-4 col-sm-4 col-xs-10">
-            <input type="number" class="form-control course-meetings">
+            <input type="number" class="form-control course-meetings" name="course-{ID}-meetings">
         </div>
 
         <div class="col-md-1 col-sm-1 col-xs-2">
