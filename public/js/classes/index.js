@@ -48,6 +48,7 @@ CollegeClass.prototype.prepareForUpdate = function (resource) {
     $('input[name=name]').val(resource.name);
     $('input[name=size]').val(resource.size);
     $('#rooms-select').val(resource.room_ids).change();
+    $('#courses-container .appended-course').remove();
 
     $.each(resource.courses, function(index){
         var course = this;
@@ -66,6 +67,7 @@ CollegeClass.prototype.submitResourceForm = function() {
 
     var data = {
         _token: this.csrfToken,
+        _method: $('[name=_method]').val(),
         name: $form.find('[name=name]').val(),
         size: $form.find('[name=size]').val(),
         unavailable_rooms: $form.find('#rooms-select').val()

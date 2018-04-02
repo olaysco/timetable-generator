@@ -99,4 +99,52 @@ class CollegeClassesController extends Controller
             return Response::json(['error' => 'Class not found'], 404);
         }
     }
+
+    /**
+     * Update the class whose id is given
+     *
+     * @param int $id Id of class
+     * @param Illuminate\Http\Request $request The HTTP request
+     * @return Illuminate\Http\Response The HTTP response
+     */
+    public function update($id, Request $request)
+    {
+        $rules = [
+            'name' => 'required|unique:classes,name,' . $id,
+            'size' => 'required'
+        ];
+
+        $this->validate($request, $rules);
+
+        $class = CollegeClass::find($id);
+
+        if (!$class) {
+            return Response::json(['error' => 'Class not found'], 404);
+        }
+
+        $class = $this->service->update($id, $request->all());
+
+        return Response::json(['message' => 'Class updated'], 200);
+    }
+
+    /**
+     * Delete the college class with the given ID
+     *
+     * @param int $id The ID of the college class
+     * @return Illuminate\Http\Response A JSON response
+     */
+    public function destroy($id)
+    {
+        $class = CollegeClass::find($id);
+
+        if (!$class) {
+            return Response::json(['error' => 'Class not found'], 404);
+        }
+
+        if ($this->service->delete($id)) {
+            return Response::json(['message' => 'Class has been deleted'], 200);
+        } else {
+            return Response::json(['error' => 'An unknown system error occurred'], 500);
+        }
+    }
 }
