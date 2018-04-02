@@ -7,7 +7,7 @@
                     <th style="width: 30%">Name</th>
                     <th style="width: 10%">Size</th>
                     <th style="width: 30%">Courses</th>
-                    <th style="width: 20%">Favourite Rooms</th>
+                    <th style="width: 20%">Unavailable Rooms</th>
                     <th style="width: 10%">Actions</th>
                 </tr>
             </thead>
@@ -19,14 +19,14 @@
                     <td>{{ $class->size }}</td>
                     <td>
                         <ul>
-                            @foreach ($class->course as $course)
+                            @foreach ($class->courses as $course)
                                 <li>{{ $course->course_code . " " . $course->name }}</li>
                             @endforeach
                         </ul>
                     </td>
                     <td>
                         <ul>
-                            @foreach ($class->rooms as $room)
+                            @foreach ($class->unavailable_rooms as $room)
                                 <li>{{ $room->name }}</li>
                             @endforeach
                         </ul>
@@ -40,12 +40,12 @@
         </table>
          <div id="pagination">
             {!!
-                $courses->render()
+                $classes->render()
             !!}
         </div>
         @else
         <div class="no-data text-center">
-            <p>No rooms added yet</p>
+            <p>No classes added yet</p>
         </div>
         @endif
     </div>

@@ -1,6 +1,7 @@
 function Resource(baseUrl, resourceName) {
     this.baseUrl = baseUrl;
     this.resourceName = resourceName;
+    this.csrfToken = $('meta[name="csrf-token"]').attr('content');
 }
 
 /**
