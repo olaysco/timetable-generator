@@ -16,13 +16,14 @@ class CreateTimetablesTable extends Migration
         Schema::create('timetables', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
-            $table->string('file_url');
-            $table->decimal('mutation_rate', 5, 4);
-            $table->decimal('crossover_rate', 5, 4);
-            $table->integer('population_count')->unsigned();
-            $table->decimal('best_fitness', 8, 6);
-            $table->integer('generations')->unsigned();
-            $table->integer('violated_constraints')->unsigned();
+            $table->string('file_url')->nullable();
+            $table->string('chromosome')->nullable();
+            //$table->decimal('mutation_rate', 5, 4);
+            //$table->decimal('crossover_rate', 5, 4);
+            //$table->integer('population_count')->unsigned();
+            $table->decimal('fitness', 8, 6)->nullable();
+            $table->integer('generations')->unsigned()->nullable();
+            $table->integer('violated_constraints')->unsigned()->nullable();
             $table->integer('user_id')->unsigned();
             $table->timestamps();
 
