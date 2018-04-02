@@ -2,12 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use Response;
 use Illuminate\Http\Request;
 use App\Services\CollegeClassesService;
 
-use Response;
-use App\Models\Course;
 use App\Models\Room;
+use App\Models\Course;
+use App\Models\CollegeClass;
 
 class CollegeClassesController extends Controller
 {
@@ -71,6 +72,31 @@ class CollegeClassesController extends Controller
             return Response::json(['message' => 'Class added'], 200);
         } else {
             return Response::json(['error' => 'A system error occurred'], 500);
+        }
+    }
+
+    /**
+     * Get the class with the given ID
+     *
+     * @param int $id The id of the class
+     * @return Illuminate\Http\Response A JSON response
+     */
+    public function show($id)
+    {
+        $class = $this->service->show($id);
+
+        $roomIds = [];
+
+        foreach ($class->unavailable_rooms as $room) {
+            $roomIds[] = $room->id;
+        }
+
+        $class->room_ids = $roomIds;
+
+        if ($class) {
+            return Response::json($class, 200);
+        } else {
+            return Response::json(['error' => 'Class not found'], 404);
         }
     }
 }

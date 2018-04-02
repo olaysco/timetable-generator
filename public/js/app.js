@@ -124,7 +124,9 @@ var App = {
                 }
 
                 // Reset the form by clearing the form and re-loading image placeholder
-                $(form)[0].reset();
+                if (!withFormData) {
+                    $(form)[0].reset();
+                }
 
                 $(form).find('.image-placeholder').attr('src', '/images/item_image_placeholder.png');
 

@@ -15,6 +15,8 @@ class CollegeClass extends Model
 
     protected $guarded = ['id'];
 
+    protected $relations = ['courses', 'unavailable_rooms'];
+
     /**
      * Get the rooms that are not available to this class
      */

@@ -24,17 +24,39 @@ CollegeClass.prototype.init = function() {
     });
 };
 
-CollegeClass.prototype.addCourse = function() {
+CollegeClass.prototype.addCourse = function(data) {
     var template = $('#course-template').html();
     var id = new Date().valueOf();
 
     template = template.replace(/{ID}/g, id);
-    $('#courses-container').append(template);
+
+    if (data) {
+        $('#courses-container').prepend(template);
+        $('[name=course-' + id + ']').val(data.course_id).change();
+        $('[name=course-' + id + '-meetings]').val(data.meetings);
+    } else {
+        $('#courses-container').append(template);
+    }
+
     $('[name=course-' + id +']').select2();
 };
 
 CollegeClass.prototype.prepareForUpdate = function (resource) {
+    console.log(resource);
+    var self = this;
+
     $('input[name=name]').val(resource.name);
+    $('input[name=size]').val(resource.size);
+    $('#rooms-select').val(resource.room_ids).change();
+
+    $.each(resource.courses, function(index){
+        var course = this;
+        var data = {
+            course_id: course.id,
+            meetings: course.pivot.meetings
+        };
+        self.addCourse(data);
+    });
 };
 
 CollegeClass.prototype.submitResourceForm = function() {
