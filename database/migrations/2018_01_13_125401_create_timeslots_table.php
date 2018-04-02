@@ -16,6 +16,7 @@ class CreateTimeslotsTable extends Migration
         Schema::create('timeslots', function (Blueprint $table) {
             $table->increments('id');
             $table->string('time');
+            $table->integer('rank')->unsigned()->nullable();
             $table->timestamps();
         });
     }
