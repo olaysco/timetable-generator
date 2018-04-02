@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateFavouriteRoomsTable extends Migration
+class CreateUnavailableRoomsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,15 +13,15 @@ class CreateFavouriteRoomsTable extends Migration
      */
     public function up()
     {
-        Schema::create('favourite_rooms', function (Blueprint $table) {
+        Schema::create('unavailable_rooms', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('course_id')->unsigned();
+            $table->integer('class_id')->unsigned();
             $table->integer('room_id')->unsigned();
             $table->timestamps();
 
-            $table->foreign('course_id')
+            $table->foreign('class_id')
                 ->references('id')
-                ->on('courses')
+                ->on('classes')
                 ->onDelete('cascade');
 
             $table->foreign('room_id')
@@ -38,6 +38,6 @@ class CreateFavouriteRoomsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('favourite_rooms');
+        Schema::dropIfExists('unavailable_rooms');
     }
 }

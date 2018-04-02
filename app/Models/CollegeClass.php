@@ -14,4 +14,18 @@ class CollegeClass extends Model
     protected $table = 'classes';
 
     protected $guarded = ['id'];
+
+    /**
+     * Get the rooms that are not available to this class
+     */
+    public function unavailable_rooms()
+    {
+        return $this->belongsToMany(Room::class, 'unavailable_rooms', 'class_id', 'room_id');
+    }
+
+    public function courses()
+    {
+        return $this->belongsToMany(Course::class, 'courses_classes', 'class_id', 'course_id')
+            ->withPivot(['meetings']);
+    }
 }

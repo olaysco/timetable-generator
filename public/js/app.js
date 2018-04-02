@@ -79,20 +79,31 @@ var App = {
         form.attr('action', actionURL);
     },
 
-    submitForm: function (form, callback, $errorContainer, hideModal = true) {
-        var actionURL = $(form).attr('action');
-        var formData = new FormData(form);
+    submitForm: function (form, callback, $errorContainer, hideModal = true, withFormData = false) {
+        var actionURL;
+        var formData;
 
+        if (!withFormData) {
+            formData = new FormData(form);
+            actionURL = $(form).attr('action');
+        } else {
+            formData = form.data;
+            actionURL = form.url;
+        }
+
+        for (var value of formData.values()) {
+            console.log(value);
+        }
         NProgress.start();
 
         // Submit form via ajax
-        $.ajax({
+        var ajaxData = {
             url: actionURL,
             type: 'POST',
             data: formData,
             processData: false,
-            contentType: false,
             cache: false,
+            contentType: false,
             success: function (responseMsg) {
                 // Notify of sucessful action
                 new PNotify({
@@ -151,7 +162,9 @@ var App = {
                     delay: 9500
                 });
             }
-        }).always(function () {
+        };
+
+        $.ajax(ajaxData).always(function () {
             NProgress.done();
         });
     },
@@ -220,6 +233,21 @@ var App = {
     extend: function(class1, class2) {
         class2.prototype = Object.create(class1.prototype);
         class1.prototype.constructor = class1;
+    },
+
+    appendFormdata: function(FormData, data, name){
+        name = name || '';
+        if (typeof data === 'object') {
+            $.each(data, function (index, value) {
+                if (name == '') {
+                    App.appendFormdata(FormData, value, index);
+                } else {
+                    App.appendFormdata(FormData, value, name + '[' + index + ']');
+                }
+            })
+        } else {
+            FormData.append(name, data);
+        }
     }
 };
 

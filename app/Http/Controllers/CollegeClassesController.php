@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Services\CollegeClassesService;
 
+use Response;
 use App\Models\Course;
 use App\Models\Room;
 
@@ -47,5 +48,29 @@ class CollegeClassesController extends Controller
         }
 
         return view('classes.index', compact('classes', 'rooms', 'courses'));
+    }
+
+    /**
+     * Add a new class to the database
+     *
+     * @param Illuminate\Http\Request $request The HTTP request
+     * @param Illuminate\Http\Response A JSON response
+     */
+    public function store(Request $request)
+    {
+        $rules = [
+            'name' => 'required|unique:classes',
+            'size' => 'required'
+        ];
+
+        $this->validate($request, $rules);
+
+        $class = $this->service->store($request->all());
+
+        if ($class) {
+            return Response::json(['message' => 'Class added'], 200);
+        } else {
+            return Response::json(['error' => 'A system error occurred'], 500);
+        }
     }
 }
