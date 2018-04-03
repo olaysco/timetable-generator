@@ -1,6 +1,8 @@
 <?php
 namespace App\Services\GeneticAlgorithm;
 
+use App\Models\Day;
+
 class Timetable
 {
     /**
@@ -335,19 +337,19 @@ class Timetable
     /**
      * Get classes scheduled for a given day for a given group
      *
-     * @param $day Day we are getting classes for
+     * @param $dayId ID of day we are getting classes for
      * @param $groupId The ID of the group
      */
-    public function getClassesByDay($day, $groupId)
+    public function getClassesByDay($dayId, $groupId)
     {
         $classes = [];
 
         foreach ($this->classes as $class) {
             $timeslot = $this->getTimeslot($class->getTimeslotId());
 
-            $classDay = trim(explode(" ", $timeslot->getTimeslot())[0]);
+            $classDayId = $timeslot->getDayId();
 
-            if ($day == $classDay && $class->getGroupId() == $groupId) {
+            if ($dayId == $classDayId && $class->getGroupId() == $groupId) {
                 $classes[] = $class;
             }
         }
@@ -363,16 +365,9 @@ class Timetable
     public function calcClashes()
     {
         $clashes = 0;
-        $days = ["Mon", "Tue", "Wed", "Thu", "Fri"];
+        $days = Day::all();
 
         foreach ($this->classes as $id => $classA) {
-            $roomCapacity = $this->getRoom($classA->getRoomId())->getCapacity();
-            $groupSize = $this->getGroup($classA->getGroupId())->getSize();
-            $professor = $this->getProfessor($classA->getProfessorId());
-            $timeslot = $this->getTimeslot($classA->getTimeslotId());
-            $module = $this->getModule($classA->getModuleId());
-
-            // Check room capacity
             $roomCapacity = $this->getRoom($classA->getRoomId())->getCapacity();
             $groupSize = $this->getGroup($classA->getGroupId())->getSize();
             $professor = $this->getProfessor($classA->getProfessorId());
@@ -424,7 +419,7 @@ class Timetable
         // and or at non-consecutive time slots
         foreach ($days as $day) {
             foreach ($this->getGroups() as $group) {
-                $classes = $this->getClassesByDay($day, $group->getId());
+                $classes = $this->getClassesByDay($day->id, $group->getId());
                 $checkedModules = [];
 
                 foreach ($classes as $classA) {

@@ -27,11 +27,6 @@ class Individual
     public function __construct($timetable = null)
     {
         if ($timetable) {
-            $numClasses = $timetable->getNumClasses();
-
-            // 1 gene for professor, 1 for time, 1 for professor
-            $chromosomeLength = $numClasses * 3;
-
             $newChromosome = [];
 
             $chromosomeIndex = 0;
