@@ -39,3 +39,7 @@ Route::get('/users/activate', 'UsersController@showActivationPage');
 Route::post('/users/activate', 'UsersController@activateUser');
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+Route::get('/test', function() {
+    dispatch(new App\Jobs\GenerateTimetable());
+});

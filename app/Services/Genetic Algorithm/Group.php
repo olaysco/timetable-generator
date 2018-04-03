@@ -1,6 +1,7 @@
 <?php
 namespace App\Services\GeneticAlgorithm;
 
+use App\Models\CollegeClass as CollegeClassModel;
 class Group
 {
     /**
@@ -11,11 +12,11 @@ class Group
     private $id;
 
     /**
-     * Size of group
+     * College class model
      *
-     * @var int
+     * @var App\Models\CollegeClass
      */
-    private $size;
+    private $model;
 
     /**
      * IDs of modules taken by this group
@@ -28,13 +29,12 @@ class Group
      * Instantiate a new group
      *
      * @param int $id Id of group
-     * @param int $size Size of the group
      * @param array Ids of modules taken by this group
      */
-    public function __construct($id, $size, $moduleIds)
+    public function __construct($id,  $moduleIds)
     {
         $this->id = $id;
-        $this->size = $size;
+        $this->model = CollegeClassModel::find($id);
         $this->moduleIds = $moduleIds;
     }
 
@@ -55,7 +55,7 @@ class Group
      */
     public function getSize()
     {
-        return $this->size;
+        return $this->model->size;
     }
 
     /**

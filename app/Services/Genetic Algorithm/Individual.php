@@ -41,7 +41,7 @@ class Individual
                     $module = $timetable->getModule($moduleId);
                     //print "\nOn Module " . $module->getModuleCode() . "\n";
 
-                    for ($i = 1; $i <= $module->getSlots(); $i++) {
+                    for ($i = 1; $i <= $module->getSlots($group->getId()); $i++) {
                         // Add random time slot
                         $timeslotId = $timetable->getRandomTimeslot()->getId();
                         $newChromosome[$chromosomeIndex] = $timeslotId;

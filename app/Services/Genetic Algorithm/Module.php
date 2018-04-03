@@ -2,6 +2,7 @@
 namespace App\Services\GeneticAlgorithm;
 
 use App\Models\Course;
+use App\Models\CollegeClass as CollegeClassModel;
 
 class Module
 {
@@ -82,9 +83,10 @@ class Module
      *
      * @return int The number of slots
      */
-    public function getSlots()
+    public function getSlots($groupId)
     {
-        return $this->moduleModel->meetings;
+        $group = CollegeClassModel::find($groupId);
+        return $group->courses()->where('courses.id', $this->moduleId)->first()->pivot->meetings ;
     }
 
     /**
