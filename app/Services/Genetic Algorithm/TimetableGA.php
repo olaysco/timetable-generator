@@ -29,7 +29,7 @@ class TimetableGA
     }
 
     /**
-     * Create the data for the algorithm
+     * Create the problem instance for the algorithm
      *
      */
     public function initializeTimetable()
