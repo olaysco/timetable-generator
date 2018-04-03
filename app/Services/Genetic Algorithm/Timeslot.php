@@ -45,7 +45,7 @@ class Timeslot
         $this->nextSlot = $nextSlot;
 
         $matches = [];
-        preg_match('/D(\d*)T(\d*)/', $id, $matches);
+        preg_match('/D(\d*)T(\d*)/', $timeslotId, $matches);
 
         $dayId = $matches[1];
         $timeslotId = $matches[2];

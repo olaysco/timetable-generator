@@ -110,38 +110,32 @@ class Timetable
      * Add a new lecture room
      *
      * @param int $roomId ID of room
-     * @param string $roomName Name of room
-     * @param int $roomCapacity Capacity of room
      */
-    public function addRoom($roomId, $roomName, $roomCapacity)
+    public function addRoom($roomId)
     {
-        $this->rooms[$roomId] = new Room($roomId, $roomName, $roomCapacity);
+        $this->rooms[$roomId] = new Room($roomId);
     }
 
     /**
      * Add a professor
      *
      * @param int $professorId Id of professor
-     * @param string $professorName Name of professor
      * @param string $unavailableSlots Slots that the professor can't teach
      */
-    public function addProfessor($professorId, $professorName, $unavailableSlots)
+    public function addProfessor($professorId, $unavailableSlots)
     {
-        $this->professors[$professorId] = new Professor($professorId, $professorName, $unavailableSlots);
+        $this->professors[$professorId] = new Professor($professorId, $unavailableSlots);
     }
 
     /**
      * Add a new module
      *
      * @param int $moduleId Id of module
-     * @param string $moduleCode Module Code
-     * @param string $moduleName Name of module
      * @param array $professorIds Ids of professors
-     * @param int $slots Number of slots this course should take
      */
-    public function addModule($moduleId, $moduleCode, $moduleName, $professorIds, $slots)
+    public function addModule($moduleId, $professorIds)
     {
-        $this->modules[$moduleId] = new Module($moduleId, $moduleCode, $moduleName, $professorIds, $slots);
+        $this->modules[$moduleId] = new Module($moduleId, $professorIds);
     }
 
     /**
@@ -151,9 +145,9 @@ class Timetable
      * @param int $groupSize Size of the group
      * @param array $moduleIds IDs of modules
      */
-    public function addGroup($groupId, $groupSize, $moduleIds)
+    public function addGroup($groupId, $moduleIds)
     {
-        $this->groups[$groupId] = new Group($groupId, $groupSize, $moduleIds);
+        $this->groups[$groupId] = new Group($groupId, $moduleIds);
         $this->numClasses = 0;
     }
 
@@ -163,9 +157,9 @@ class Timetable
      * @param int $timeslotId ID of time slot
      * @param string $timeslot Timeslot
      */
-    public function addTimeslot($timeslotId, $timeslot, $next)
+    public function addTimeslot($timeslotId, $next)
     {
-        $this->timeslots[$timeslotId] = new Timeslot($timeslotId, $timeslot, $next);
+        $this->timeslots[$timeslotId] = new Timeslot($timeslotId, $next);
     }
 
     /**
@@ -187,7 +181,7 @@ class Timetable
             foreach ($moduleIds as $moduleId) {
                 $module = $this->getModule($moduleId);
 
-                for ($i = 1; $i <= $module->getSlots(); $i++) {
+                for ($i = 1; $i <= $module->getSlots($id); $i++) {
                     $classes[$classIndex] = new CollegeClass($classIndex, $group->getId(), $moduleId);
 
                     // Add timeslot
@@ -447,7 +441,7 @@ class Timetable
                             }
                         }
 
-                        if (!areConsecutive($moduleTimeslots)) {
+                        if (!$this->areConsecutive($moduleTimeslots)) {
                             $clashes++;
                         }
 
@@ -458,5 +452,24 @@ class Timetable
         }
 
         return $clashes;
+    }
+
+    /**
+     * Determine whether a given set of numbers are
+     * consecutive
+     */
+    public function areConsecutive($numbers) {
+        sort($numbers);
+
+        $min = $numbers[0];
+        $max = $numbers[count($numbers) - 1];
+
+        for ($i = $min; $i <= $max; $i++) {
+            if (!in_array($i, $numbers)) {
+                return false;
+            }
+        }
+
+        return true;
     }
 }
