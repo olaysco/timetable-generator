@@ -258,3 +258,9 @@ tbody tr:nth-of-type(odd) {
     color: #fff;
 }
 
+.timetable-btn {
+    font-size: 2em;
+    border: none;
+    padding: 10px;
+}
+

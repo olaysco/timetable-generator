@@ -99,7 +99,6 @@ class CoursesController extends Controller
     {
         $rules = [
             'name' => 'required',
-            'meetings' => 'required|numeric',
             'course_code' => 'required|unique:courses,course_code,' . $id
         ];
 

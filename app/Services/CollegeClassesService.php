@@ -62,6 +62,14 @@ class CollegeClassesService extends AbstractService
             'size' => $data['size']
         ]);
 
+        if (!isset($data['unavailable_rooms'])) {
+            $data['unavailable_rooms'] = [];
+        }
+
+        if (!isset($data['courses'])) {
+            $data['courses'] = [];
+        }
+
         $class->unavailable_rooms()->sync($data['unavailable_rooms']);
         $class->courses()->sync($data['courses']);
 

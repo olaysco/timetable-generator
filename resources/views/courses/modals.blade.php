@@ -30,11 +30,6 @@
                                 <label>Course Code</label>
                                 <input type="text" name="course_code" class="form-control">
                             </div>
-
-                            <div class="form-group">
-                                <label>Meetings Per Week</label>
-                                <input type="text" name="meetings" class="form-control">
-                            </div>
                         </div>
                     </div>
                 </div>

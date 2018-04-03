@@ -34,6 +34,10 @@ Route::resource('professors', 'ProfessorsController');
 // Routes for college classes
 Route::resource('classes', 'CollegeClassesController');
 
+// Routes for timetable generation
+Route::post('timetables', 'TimetablesController@store');
+Route::get('timetables', 'TimetablesController@index');
+
 // User account activation routes
 Route::get('/users/activate', 'UsersController@showActivationPage');
 Route::post('/users/activate', 'UsersController@activateUser');

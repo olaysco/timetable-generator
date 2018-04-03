@@ -32,7 +32,9 @@ class Test extends Command
     public function __construct()
     {
         parent::__construct();
-        $this->timetable = Timetable::find(2);
+        //$this->timetable = Timetable::create([
+          //  'name' => 'Automatic', 'user_id' => 1]);
+        //$this->timetable->days()->sync([1,2,3,4,5]);
     }
 
     /**
