@@ -11,7 +11,7 @@ use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 
-class GenerateTimetable implements ShouldQueue
+class GenerateTimetables implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
@@ -22,9 +22,9 @@ class GenerateTimetable implements ShouldQueue
      *
      * @return void
      */
-    public function __construct()
+    public function __construct($timetable)
     {
-        $this->timetable = Timetable::find(2);
+        $this->timetable = $timetable;
     }
 
     /**
