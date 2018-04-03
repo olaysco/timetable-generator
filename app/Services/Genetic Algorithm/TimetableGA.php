@@ -170,52 +170,13 @@ class TimetableGA
             $algorithm->coolTemperature();
         }
 
-        $timetable->createClasses($population->getFittest(0));
+        // Update the timetable data in the DB
+        $solution =  $population->getFittest(0);
 
-        print "Solution found in {$generation} generations\n";
-        print "Final solution fitness: " . $population->getFittest(0)->getFitness() . "\n";
-        print "Clashes: " . $timetable->calcClashes() . "";
-
-        $classes = $timetable->getClasses();
-
-        $classes = $timetable->getClasses();
-        $printOut = [];
-        //print_r($classes);
-        //return;
-
-        foreach ($timetable->getGroups() as $group) {
-            $printOut[$group->getId()] = [];
-
-            foreach ($timetable->getTimeslots() as $slot) {
-                $day = substr($slot->getTimeslot(), 0, 3);
-                $time = substr($slot->getTimeslot(), 4);
-                $printOut[$group->getId()][$day][$time] = "";
-            }
-        }
-
-        foreach ($classes as $class) {
-            $groupId = $timetable->getGroup($class->getGroupId())->getId();
-            $timeSlot = $timetable->getTimeslot($class->getTimeslotId())->getTimeslot();
-            $professor = $timetable->getProfessor($class->getProfessorId())->getName();
-            $module = $timetable->getModule($class->getModuleId())->getModuleCode();
-            $room = $timetable->getRoom($class->getRoomId())->getRoomNumber();
-            $day = substr($timeSlot, 0, 3);
-            $time = substr($timeSlot, 4);
-
-            $printOut[$groupId][$day][$time] = $module . " - " . $professor . " - " . $room;
-        }
-
-        foreach ($printOut as $groupId => $data) {
-            print "\n\nYear " . $groupId ."\n";
-            printf("%'-140s\n", "");
-            foreach ($data as $day => $dayData) {
-                print $day . " | \t";
-                foreach ($dayData as $time => $info) {
-                    printf( "%-30s", $info);
-                    print " | ";
-                }
-                printf("\n%'-140s\n", "");
-            }
-        }
+        $this->timetable->update([
+            'chromosome' => $solution->getChromosomeString(),
+            'fitness' => $solution->getFitness(),
+            'generations' => $generation
+        ]);
     }
 }

@@ -169,14 +169,11 @@ class Individual
      */
     public function __toString()
     {
-        $output = "";
+        return $this->getChromosomeString();
+    }
 
-        for ($i = 0; $i < count($this->chromosome); $i++) {
-            $output .= $this->chromosome[$i] . ',';
-        }
-
-        $output .= "\tFitness: " . $this->fitness . "\n";
-
-        return $output;
+    public function getChromosomeString()
+    {
+        return implode(",", $this->chromosome);
     }
 }
