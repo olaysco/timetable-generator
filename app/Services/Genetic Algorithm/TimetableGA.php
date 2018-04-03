@@ -176,7 +176,8 @@ class TimetableGA
         $this->timetable->update([
             'chromosome' => $solution->getChromosomeString(),
             'fitness' => $solution->getFitness(),
-            'generations' => $generation
+            'generations' => $generation,
+            'status' => 'COMPLETED'
         ]);
     }
 }

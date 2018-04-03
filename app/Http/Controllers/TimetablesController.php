@@ -6,6 +6,7 @@ use Auth;
 use Response;
 use Illuminate\Http\Request;
 use App\Services\TimetableService;
+use App\Events\TimetablesRequested;
 
 use App\Models\Day;
 use App\Models\Timetable;
@@ -83,6 +84,8 @@ class TimetablesController extends Controller
         if ($timetable) {
             $timetable->days()->sync($dayIds);
         }
+
+        event(new TimetablesRequested($timetable));
 
         return Response::json(['message' => 'Timetables are being generated.Check back later'], 200);
     }
