@@ -116,14 +116,14 @@ Resource.prototype.prepareForUpdate = function(resource) {
  * Submit form for adding or updating resource
  */
 Resource.prototype.submitResourceForm = function() {
-    App.submitForm($('#resource-form').get(0), this.refreshPage, $('#errors-container'));
+    App.submitForm($('#resource-form').get(0), this.refreshPage.bind(this), $('#errors-container'));
 };
 
 /**
  * Submit form for adding or updating resource
  */
 Resource.prototype.submitDeleteForm = function () {
-    App.submitForm($('#resource-delete-form').get(0), this.refreshPage, null);
+    App.submitForm($('#resource-delete-form').get(0), this.refreshPage.bind(this), null);
 };
 
 /**
@@ -141,7 +141,7 @@ Resource.prototype.clearForm = function() {
 Resource.prototype.refreshPage = function() {
     var $container = $('#resource-container');
     var url = this.baseUrl;
-
+    console.log(url);
     $container.html("");
 
     $.ajax({

@@ -16,6 +16,7 @@ class CreateTimetablesTable extends Migration
         Schema::create('timetables', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
+            $table->enum('status', ['IN PROGRESS', 'COMPLETED']);
             $table->string('file_url')->nullable();
             $table->string('chromosome')->nullable();
             //$table->decimal('mutation_rate', 5, 4);

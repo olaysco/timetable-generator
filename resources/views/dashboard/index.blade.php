@@ -8,7 +8,7 @@
         </div>
     </div>
 
-    <div class="page-body menubar" id="resource-container">
+    <div class="page-body menubar">
         <div class="row">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 <div class="row cards-container">
@@ -30,12 +30,21 @@
                 </div>
             </div>
         </div>
+
+        <div class="row" style="margin-top: 50px">
+            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 col-lg-offset-4 col-md-offset-4 col-sm-offset-4">
+                <button class="btn-primary timetable-btn btn-block" id="resource-add-button"><i class="fa fa-calendar"></i> Generate New Timetables</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="resource-container">
+        @include('dashboard.timetables')
     </div>
 </div>
-
-@include('courses.modals')
+@include('dashboard.modals')
 @endsection
 
 @section('scripts')
-<script src="{{URL::asset('/js/courses/index.js')}}"></script>
+<script src="{{URL::asset('/js/dashboard/index.js')}}"></script>
 @endsection

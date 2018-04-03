@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Services\DashboardService;
 
+use App\Models\Day;
+use App\Models\Timetable;
+
 class DashboardController extends Controller
 {
     /**
@@ -24,6 +27,8 @@ class DashboardController extends Controller
     public function index()
     {
         $data = $this->service->getData();
-        return view('dashboard.index', compact('data'));
+        $timetables = Timetable::orderBy('created_at', 'DESC')->paginate(10);
+        $days = Day::all();
+        return view('dashboard.index', compact('data', 'timetables', 'days'));
     }
 }
