@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Auth;
 use Response;
+use Storage;
 use Illuminate\Http\Request;
 use App\Services\TimetableService;
 use App\Events\TimetablesRequested;
@@ -88,5 +89,24 @@ class TimetablesController extends Controller
         event(new TimetablesRequested($timetable));
 
         return Response::json(['message' => 'Timetables are being generated.Check back later'], 200);
+    }
+
+    /**
+     * Display a printable view of timetable set
+     *
+     * @param int $id
+     */
+    public function view($id)
+    {
+        $timetable = Timetable::find($id);
+
+        if (!$timetable) {
+            return redirect('/');
+        } else {
+            $path = $timetable->file_url;
+            $timetableData =  Storage::get($path);
+            $timetableName = $timetable->name;
+            return view('timetables.view', compact('timetableData', 'timetableName'));
+        }
     }
 }

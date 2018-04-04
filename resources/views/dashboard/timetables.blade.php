@@ -15,7 +15,13 @@
                 <tr>
                     <td>{{ $timetable->name }}</td>
                     <td>{{ $timetable->status }}</td>
-                    <td>{{ $timetable->file_url ? $timetable->file_url : 'N/A' }}</td>
+                    <td>
+                        @if($timetable->file_url)
+                        <a href="{{ URL::to('/timetables/view/' . $timetable->id) }}">View</a>
+                        @else
+                        N/A
+                        @endif
+                    </td>
                 </tr>
                 @endforeach
             </tbody>
