@@ -6,7 +6,7 @@
                 <tr class="table-head">
                     <td>Timetable Name</td>
                     <td>Status</td>
-                    <td>View</td>
+                    <td style="width: 10%">Print</td>
                 </tr>
             </thead>
 
@@ -17,7 +17,7 @@
                     <td>{{ $timetable->status }}</td>
                     <td>
                         @if($timetable->file_url)
-                        <a href="{{ URL::to('/timetables/view/' . $timetable->id) }}">View</a>
+                        <a href="{{ URL::to('/timetables/view/' . $timetable->id) }}" class="btn btn-sm btn-primary print-btn"><span class="fa fa-print"></span> PRINT</a>
                         @else
                         N/A
                         @endif
