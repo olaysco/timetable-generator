@@ -221,7 +221,11 @@ class Timetable
             $scheme[] = 'G' . $id;
 
             foreach ($moduleIds as $moduleId) {
-                $scheme[] = $moduleId;
+                $module = $this->getModule($moduleId);
+
+                for ($i = 1; $i <= $module->getSlots($id); $i++) {
+                    $scheme[] = $moduleId;
+                }
             }
         }
 
