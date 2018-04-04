@@ -45,5 +45,7 @@ Route::post('/users/activate', 'UsersController@activateUser');
 Route::get('/home', 'HomeController@index')->name('home');
 
 Route::get('/test', function() {
-    dispatch(new App\Jobs\GenerateTimetable());
+    print 'Hi';
+    $timetable = App\Models\Timetable::first();
+    event(new App\Events\TimetablesGenerated($timetable));
 });
