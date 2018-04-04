@@ -46,7 +46,7 @@ class TimetableRenderer
         $content = "";
 
         foreach ($classes as $class) {
-            $header = "<tr>";
+            $header = "<tr class='table-head'>";
             $header .= "<td>Days</td>";
 
             foreach ($timeslots as $timeslot) {
@@ -58,7 +58,7 @@ class TimetableRenderer
             $body = "";
 
             foreach ($days as $day) {
-                $body . "<tr><td>" . $day->name . "</td>";
+                $body .= "<tr><td>" . strtoupper($day->name) . "</td>";
                 foreach ($timeslots as $timeslot) {
                     if (isset($data[$class->id][$day->name][$timeslot->time])) {
                         $body .= "<td>";
@@ -68,7 +68,7 @@ class TimetableRenderer
                         $professor = $slotData['professor'];
                         $room = $slotData['room'];
 
-                        $body .= "<span class='course_code'>{$courseCode}</span>";
+                        $body .= "<span class='course_code'>{$courseCode}</span><br />";
                         $body .= "<span class='room'>{$room}</span>";
                         $body .= "<span class='professor'>{$professor}</span>";
 
