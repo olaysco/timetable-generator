@@ -3,6 +3,7 @@
 namespace App\Listeners;
 
 
+use App\Jobs\RenderTimetables;
 use App\Jobs\GenerateTimetables;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
@@ -19,6 +20,11 @@ class TimetableEventSubscriber implements ShouldQueue
         dispatch(new GenerateTimetables($event->timetable));
     }
 
+    public function onTimetablesGenerated($event)
+    {
+        dispatch(new RenderTimetables($event->timetable));
+    }
+
 
     /**
      * Register listeners for the various user events.
@@ -30,6 +36,11 @@ class TimetableEventSubscriber implements ShouldQueue
         $events->listen(
             'App\Events\TimetablesRequested',
             'App\Listeners\TimetableEventSubscriber@onTimetablesRequested'
+        );
+
+        $events->listen(
+            'App\Events\TimetablesGenerated',
+            'App\Listeners\TimetableEventSubscriber@onTimetablesGenerated'
         );
     }
 }
