@@ -172,11 +172,13 @@ class TimetableGA
 
         // Update the timetable data in the DB
         $solution =  $population->getFittest(0);
+        $scheme = $timetable->getScheme();
 
         $this->timetable->update([
             'chromosome' => $solution->getChromosomeString(),
             'fitness' => $solution->getFitness(),
             'generations' => $generation,
+            'scheme' => $scheme,
             'status' => 'COMPLETED'
         ]);
     }

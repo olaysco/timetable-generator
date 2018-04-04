@@ -19,6 +19,7 @@ class CreateTimetablesTable extends Migration
             $table->enum('status', ['IN PROGRESS', 'COMPLETED']);
             $table->string('file_url')->nullable();
             $table->string('chromosome')->nullable();
+            $table->string('scheme')->nullable();
             //$table->decimal('mutation_rate', 5, 4);
             //$table->decimal('crossover_rate', 5, 4);
             //$table->integer('population_count')->unsigned();

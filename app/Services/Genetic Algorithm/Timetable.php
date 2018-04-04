@@ -207,6 +207,28 @@ class Timetable
     }
 
     /**
+     * Get the string that shows how the timetable chromosome is to be read
+     *
+     * @return string Chromosome scheme
+     */
+    public function getScheme()
+    {
+        $scheme = [];
+
+        foreach ($this->groups as $id => $group) {
+            $moduleIds = $group->getModuleIds();
+
+            $scheme[] = 'G' . $id;
+
+            foreach ($moduleIds as $moduleId) {
+                $scheme[] = $moduleId;
+            }
+        }
+
+        return implode(",", $scheme);
+    }
+
+    /**
      * Get a room by ID
      *
      * @param int $roomId ID of room
