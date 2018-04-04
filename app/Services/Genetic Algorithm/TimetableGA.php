@@ -1,6 +1,8 @@
 <?php
 namespace App\Services\GeneticAlgorithm;
 
+use App\Events\TimetablesGenerated;
+
 use App\Models\Course;
 use App\Models\Room as RoomModel;
 use App\Models\Timeslot as TimeslotModel;
@@ -133,7 +135,7 @@ class TimetableGA
      */
     public function run()
     {
-        $maxGenerations = 1500;
+        $maxGenerations = 2;
 
         $timetable = $this->initializeTimetable();
 
@@ -181,5 +183,7 @@ class TimetableGA
             'scheme' => $scheme,
             'status' => 'COMPLETED'
         ]);
+
+        event(new TimetablesGenerated($this->timetable));
     }
 }
