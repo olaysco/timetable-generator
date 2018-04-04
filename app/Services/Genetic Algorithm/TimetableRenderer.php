@@ -41,7 +41,6 @@ class TimetableRenderer
         $classes = CollegeClassModel::all();
 
         $tableTemplate =  Storage::get('/storage/timetables/template.html');
-        $htmlTemplate  = Storage::get('/storage/timetables/html_template.html');
 
         $content = "";
 
@@ -58,10 +57,10 @@ class TimetableRenderer
             $body = "";
 
             foreach ($days as $day) {
-                $body .= "<tr><td>" . strtoupper($day->name) . "</td>";
+                $body .= "<tr><td>" . strtoupper($day->short_name) . "</td>";
                 foreach ($timeslots as $timeslot) {
                     if (isset($data[$class->id][$day->name][$timeslot->time])) {
-                        $body .= "<td>";
+                        $body .= "<td class='text-center'>";
                         $slotData = $data[$class->id][$day->name][$timeslot->time];
                         $courseCode = $slotData['course_code'];
                         $courseName = $slotData['course_name'];
@@ -80,12 +79,16 @@ class TimetableRenderer
                 $body .= "</tr>";
             }
 
-            $content .= str_replace(['{HEADING}', '{BODY}'], [$header, $body], $tableTemplate);
+            $title = $class->name;
+            $content .= str_replace(['{TITLE}', '{HEADING}', '{BODY}'], [$title, $header, $body], $tableTemplate);
         }
 
-        $finalHtml = str_replace(['{TITLE}', '{CONTENT}'], [$this->timetable->name, $content], $htmlTemplate);
+        $path = 'storage/timetables/timetable_' . $this->timetable->id . '.html';
+        Storage::put($path, $content);
 
-        Storage::put('storage/timetables/timetable_' . $this->timetable->id . '.html', $finalHtml);
+        $this->timetable->update([
+            'file_url' => $path
+        ]);
     }
 
     /**
