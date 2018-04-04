@@ -49,3 +49,7 @@ Route::get('/test', function() {
     $timetable = App\Models\Timetable::first();
     event(new App\Events\TimetablesGenerated($timetable));
 });
+
+Route::get('/load', function() {
+    //return PDF::loadFile(base_path().'/storage/app/storage/timetables/timetable_7.html')->setPaper('a4', 'landscape')->stream////('download.pdf');
+});

@@ -69,8 +69,8 @@ class TimetableRenderer
                         $room = $slotData['room'];
 
                         $body .= "<span class='course_code'>{$courseCode}</span><br />";
-                        $body .= "<span class='room'>{$room}</span>";
-                        $body .= "<span class='professor'>{$professor}</span>";
+                        $body .= "<span class='room pull-left'>{$room}</span>";
+                        $body .= "<span class='professor pull-right'>{$professor}</span>";
 
                         $body .= "</td>";
                     } else {
