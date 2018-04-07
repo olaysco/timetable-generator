@@ -26,11 +26,13 @@
                                 <div class="row">
                                     <div class="col-md-6 col-sm-6 col-xs-12">
                                         <div class="select2-wrapper">
-                                            <select name="from" class="form-control select2">
+                                            <select id="from-select" name="from" class="form-control select2">
                                                 @for($i = 0; $i <= 23; $i++)
-                                                <option value="{{ (($i < 10) ? "0" : "") . $i . ":00" }}">
-                                                    {{ (($i < 10) ? "0" : "") . $i . ":00" }}
-                                                </option>
+                                                   @foreach(['00', '30'] as $subPart)
+                                                    <option value="{{ (($i < 10) ? "0" : "") . $i . ":" . $subPart }}">
+                                                        {{ (($i < 10) ? "0" : "") . $i . ":" . $subPart }}
+                                                    </option>
+                                                    @endforeach
                                                 @endfor
                                             </select>
                                         </div>
@@ -38,11 +40,13 @@
 
                                     <div class="col-md-6 col-sm-6 col-xs-12">
                                         <div class="select2-wrapper">
-                                            <select name="to" class="form-control select2">
+                                            <select id="to-select" name="to" class="form-control select2">
                                                 @for($i = 0; $i <= 23; $i++)
-                                                <option value="{{ (($i < 10) ? "0" : "") . $i . ":00" }}">
-                                                    {{ (($i < 10) ? "0" : "") . $i . ":00" }}
-                                                </option>
+                                                    @foreach(['00', '30'] as $subPart)
+                                                    <option value="{{ (($i < 10) ? "0" : "") . $i . ":" . $subPart }}">
+                                                        {{ (($i < 10) ? "0" : "") . $i . ":" . $subPart }}
+                                                    </option>
+                                                    @endforeach
                                                 @endfor
                                             </select>
                                         </div>
