@@ -36,7 +36,11 @@ class TimeslotsController extends Controller
      */
     public function index(Request $request)
     {
-        $timeslots = $this->service->all();
+        $timeslots = $this->service->all([
+            'order_by' => 'rank',
+            'paginate' => 'true',
+            'per_page' => 20
+        ]);
 
         if ($request->ajax()) {
             return view('timeslots.table', compact('timeslots'));
@@ -153,7 +157,7 @@ class TimeslotsController extends Controller
         $timeslots = Timeslot::all();
 
         foreach ($timeslots as $timeslot) {
-            if ($timeslot->containsPeriod($data['time'])) {
+            if (($timeslot->time != $data['time']) && $timeslot->containsPeriod($data['time'])) {
                 $errors = [ $data['time'] . ' falls within another timeslot (' . $timeslot->time
                     . ').Please adjust timeslots'];
                 return Response::json(['errors' => $errors], 422);
