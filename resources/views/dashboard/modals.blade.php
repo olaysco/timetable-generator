@@ -31,8 +31,8 @@
 
                                 @foreach ($days as $day)
                                 <div class="form-group">
-                                <input name="day_{{ $day->id }}" type="checkbox" @if($day->id <= 5) checked @endif>
-                                    <label>{{ $day->name }}</label>
+                                    <input name="day_{{ $day->id }}" type="checkbox" for="day_{{ $day->id }}" @if($day->id <= 5) checked @endif>
+                                    <label id="day_{{ $day->id }}">{{ $day->name }}</label>
                                 </div>
                                 @endforeach
                             </div>

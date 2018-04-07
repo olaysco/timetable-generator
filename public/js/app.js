@@ -19,6 +19,13 @@ var App = {
             autoclose: true
         });
 
+        // iCheck
+        $('input').iCheck({
+            labelHover: false,
+            cursor: true,
+            checkboxClass: 'icheckbox_flat-green'
+        });
+
         App.registerEventListeners();
     },
 

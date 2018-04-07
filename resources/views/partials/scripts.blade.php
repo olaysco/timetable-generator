@@ -38,8 +38,11 @@
  <!-- Tokenizer -->
 <script src="{{ URL::asset('vendors/tokenizer/bootstrap-tokenfield.min.js') }}"></script>
 
+{{-- iCheck JS --}}
+<script src="{!! URL::asset('/vendors/iCheck/icheck.min.js') !!}"></script>
+
 {{-- App JS --}}
 <script src="{!! URL::asset('/js/app.js') !!}"></script>
 
-{{-- App JS --}}
+{{-- Resource JS --}}
 <script src="{!! URL::asset('/js/resource.js') !!}"></script>
