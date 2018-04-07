@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Response;
 use Illuminate\Http\Request;
+use App\Events\TimeslotsUpdated;
 use App\Services\TimeslotsService;
 
 use App\Models\Day;
@@ -72,9 +73,20 @@ class TimeslotsController extends Controller
         $data = $request->all();
         $data['time'] = Timeslot::createTimePeriod($data['from'], $data['to']);
 
+        $timeslots = Timeslot::all();
+
+        foreach ($timeslots as $timeslot) {
+            if ($timeslot->containsPeriod($data['time'])) {
+                $errors = [ $data['time'] . ' falls within another timeslot (' . $timeslot->time
+                    . ').Please adjust timeslots'];
+                return Response::json(['errors' => $errors], 422);
+            }
+        }
+
         $timeslot = $this->service->store($data);
 
         if ($timeslot) {
+            event(new TimeslotsUpdated());
             return Response::json(['message' => 'Timeslot has been added'], 200);
         } else {
             return Response::json(['error' => 'A system error occurred'], 500);
@@ -138,7 +150,18 @@ class TimeslotsController extends Controller
         $data = $request->all();
         $data['time'] = Timeslot::createTimePeriod($data['from'], $data['to']);
 
+        $timeslots = Timeslot::all();
+
+        foreach ($timeslots as $timeslot) {
+            if ($timeslot->containsPeriod($data['time'])) {
+                $errors = [ $data['time'] . ' falls within another timeslot (' . $timeslot->time
+                    . ').Please adjust timeslots'];
+                return Response::json(['errors' => $errors], 422);
+            }
+        }
+
         if ($this->service->update($id, $data)) {
+            event(new TimeslotsUpdated());
             return Response::json(['message' => 'Timeslot updated'], 200);
         }
 
@@ -159,6 +182,7 @@ class TimeslotsController extends Controller
         }
 
         if ($this->service->delete($id)) {
+            event(new TimeslotsUpdated());
             return Response::json(['message' => 'Timeslot has been deleted'], 200);
         } else {
             return Response::json(['error' => 'An unknown system error occurred'], 500);

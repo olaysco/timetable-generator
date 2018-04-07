@@ -20,6 +20,7 @@ class EventServiceProvider extends ServiceProvider
 
     protected $subscribe = [
         'App\Listeners\TimetableEventSubscriber',
+        'App\Listeners\TimeslotEventSubscriber'
     ];
 
     /**
