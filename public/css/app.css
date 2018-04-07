@@ -264,3 +264,7 @@ tbody tr:nth-of-type(odd) {
     padding: 10px;
 }
 
+.input-group-btn .btn {
+    font-size: 16px;
+}
+

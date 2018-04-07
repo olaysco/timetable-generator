@@ -41,6 +41,18 @@ Resource.prototype.init = function() {
         self.clearForm();
         self.initializeDeleteModal(resourceId);
     });
+
+    // Set up event listener for search button click
+    $(document).on('click', '#search-button', function(event) {
+        event.preventDefault();
+        self.search($('[name=search_term]').val());
+    });
+
+    $('[name=search_term]').keypress(function (event) {
+        if (event.keyCode == 13) {
+            self.search($('[name=search_term]').val());
+        }
+    });
 };
 
 /**
@@ -138,10 +150,16 @@ Resource.prototype.clearForm = function() {
 /**
  * Refresh page for a resource after
  */
-Resource.prototype.refreshPage = function() {
+Resource.prototype.refreshPage = function(keyword) {
     var $container = $('#resource-container');
     var url = this.baseUrl;
-    console.log(url);
+
+    keyword = keyword || null;
+
+    if (keyword) {
+        url += "?keyword=" + keyword;
+    }
+
     $container.html("");
 
     $.ajax({
@@ -152,3 +170,12 @@ Resource.prototype.refreshPage = function() {
         }
     });
 };
+
+/**
+ * Conduct a search for this resource based on a given keyword
+ *
+ * @param {String} keyword
+ */
+Resource.prototype.search = function(keyword) {
+    this.refreshPage(keyword);
+}
