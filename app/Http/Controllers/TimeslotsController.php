@@ -37,6 +37,7 @@ class TimeslotsController extends Controller
     public function index(Request $request)
     {
         $timeslots = $this->service->all([
+            'keyword' => $request->has('keyword') ? $request->keyword : null,
             'order_by' => 'rank',
             'paginate' => 'true',
             'per_page' => 20

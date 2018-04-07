@@ -36,6 +36,7 @@ class CollegeClassesController extends Controller
     public function index(Request $request)
     {
         $classes = $this->service->all([
+            'keyword' => $request->has('keyword') ? $request->keyword : null,
             'order_by' => 'name',
             'paginate' => 'true',
             'per_page' => 20
