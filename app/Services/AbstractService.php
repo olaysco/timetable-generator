@@ -29,6 +29,11 @@ abstract class AbstractService
     {
         $query = $this->model();
 
+        // Deal with keyword searches
+        if (isset($data['keyword'])) {
+            $query = $this->search($query, $data['keyword']);
+        }
+
         // Deal with ordering of resources.
         if (isset($data['order_by']) && $this->tableHasColumn($data['order_by'])) {
             $ranking = isset($data['ranking']) ? $data['ranking'] : 'asc';
@@ -233,5 +238,27 @@ abstract class AbstractService
         $table = $this->model()->getTable();
 
         return $column && Schema::hasColumn($table, $column);
+    }
+
+    /**
+     * Add 'OR' conditions to a query to perform a search by keyword
+     *
+     * @param Illuminate\Database\Eloquent
+     */
+    public function search($query, $keyword)
+    {
+        $first = true;
+        $model = new $this->model;
+
+        foreach ($model->getSearchFields() as $field) {
+            if ($first) {
+                $query = $query->where($field, 'LIKE', '%' . $keyword . '%');
+                $first = false;
+            } else {
+                $query = $query->orWhere($field, 'LIKE', '%' . $keyword . '%');
+            }
+        }
+
+        return $query;
     }
 }

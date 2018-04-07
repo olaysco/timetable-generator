@@ -13,11 +13,7 @@ Professors
     </div>
 
     <div class="menubar">
-        <div class="row">
-            <div class="col-md-2 col-sm-6 col-xs-12 col-md-offset-10 col-sm-offset-6">
-                <button class="btn btn-md btn-primary btn-block" id="resource-add-button"><span class="fa fa-plus"></span> Add New Professor</button>
-            </div>
-        </div>
+        @include('partials.menu_bar', ['buttonTitle' => 'Add New Professor'])
     </div>
 
     <div class="page-body" id="resource-container">

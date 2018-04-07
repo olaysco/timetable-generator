@@ -2,8 +2,6 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
-
 class UnavailableTimeslot extends Model
 {
     protected $table = 'unavailable_timeslots';

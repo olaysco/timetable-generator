@@ -2,8 +2,6 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
-
 class Course extends Model
 {
     /**
@@ -26,6 +24,13 @@ class Course extends Model
      * @var array
      */
     protected $relations = ['professors', 'classes'];
+
+    /**
+     * Fields that a keyword search should be carried on
+     *
+     * @var array
+     */
+    protected $searchFields = ['name', 'course_code'];
 
     /**
      * Declare a relationship between this course and the
