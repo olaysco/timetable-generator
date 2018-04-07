@@ -30,6 +30,19 @@
                                 <label>Course Code</label>
                                 <input type="text" name="course_code" class="form-control">
                             </div>
+
+                            <div class="form-group">
+                                <label>Professors</label>
+
+                                <div class="select2-wrapper">
+                                    <select id="professors-select" name="professor_ids[]" class="form-control select2" multiple>
+                                        <option value="">Select professors</option>
+                                        @foreach ($professors as $professor)
+                                         <option value="{{ $professor->id }}">{{ $professor->name }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
