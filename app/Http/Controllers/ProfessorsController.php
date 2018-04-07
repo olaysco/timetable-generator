@@ -42,6 +42,7 @@ class ProfessorsController extends Controller
     public function index(Request $request)
     {
         $professors = $this->service->all([
+            'keyword' => $request->has('keyword') ? $request->keyword : null,
             'order_by' => 'name',
             'paginate' => 'true',
             'per_page' => 20
