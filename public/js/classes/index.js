@@ -27,6 +27,7 @@ CollegeClass.prototype.init = function() {
 CollegeClass.prototype.addCourse = function(data) {
     var template = $('#course-template').html();
     var id = new Date().valueOf();
+    data = data || null;
 
     template = template.replace(/{ID}/g, id);
 
@@ -42,13 +43,12 @@ CollegeClass.prototype.addCourse = function(data) {
 };
 
 CollegeClass.prototype.prepareForUpdate = function (resource) {
-    console.log(resource);
     var self = this;
 
     $('input[name=name]').val(resource.name);
     $('input[name=size]').val(resource.size);
     $('#rooms-select').val(resource.room_ids).change();
-    $('#courses-container .appended-course').remove();
+    $('#courses-container .course-form').remove();
 
     $.each(resource.courses, function(index){
         var course = this;
@@ -58,6 +58,19 @@ CollegeClass.prototype.prepareForUpdate = function (resource) {
         };
         self.addCourse(data);
     });
+
+    self.addCourse();
+};
+
+CollegeClass.prototype.clearForm = function() {
+    // Clear the form using the usual way
+    Resource.prototype.clearForm.call(this);
+
+    // Clear the course select forms
+    $('#courses-container .course-form').remove();
+
+    // Add new initial course select form
+    this.addCourse();
 };
 
 CollegeClass.prototype.submitResourceForm = function() {
