@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Services\CoursesService;
 
 use App\Models\Course;
+use App\Models\Professor;
 
 class CoursesController extends Controller
 {
@@ -36,11 +37,13 @@ class CoursesController extends Controller
             'per_page' => 20
         ]);
 
+        $professors = Professor::all();
+
         if ($request->ajax()) {
             return view('courses.table', compact('courses'));
         }
 
-        return view('courses.index', compact('courses'));
+        return view('courses.index', compact('courses', 'professors'));
     }
 
     /**
@@ -53,7 +56,6 @@ class CoursesController extends Controller
         $rules = [
             'name' => 'required',
             'course_code' => 'required|unique:courses,course_code',
-            'meetings' => 'required|numeric'
         ];
 
         $messages = [
@@ -71,7 +73,6 @@ class CoursesController extends Controller
         }
     }
 
-
     /**
      * Get a room by id
      *
@@ -80,7 +81,7 @@ class CoursesController extends Controller
      */
     public function show($id, Request $request)
     {
-        $course = Course::find($id);
+        $course = $this->service->show($id);
 
         if ($course) {
             return Response::json($course, 200);

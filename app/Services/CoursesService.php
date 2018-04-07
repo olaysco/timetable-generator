@@ -19,4 +19,74 @@ class CoursesService extends AbstractService
      * @var bool
      */
     protected $showWithRelations = true;
+
+    /**
+     * Save a new course in the db
+     *
+     * @param array $data Data for creating a new course
+     */
+    public function store($data = [])
+    {
+        $course = Course::create([
+            'name' => $data['name'],
+            'course_code' => $data['course_code']
+        ]);
+
+        if (!$course) {
+            return null;
+        }
+
+        $course->professors()->sync($data['professor_ids']);
+
+        return $course;
+    }
+
+    /**
+     * Get the course with the given id loaded with necessary data
+     *
+     * @param int $id Id of professor
+     * @return App\Models\Course Newly created course
+     */
+    public function show($id)
+    {
+        $course = Course::find($id);
+        $professorIds = [];
+
+        if (!$course) {
+            return null;
+        }
+
+        foreach ($course->professors as $professor) {
+            $professorIds[] = $professor->id;
+        }
+
+        $course->professor_ids = $professorIds;
+
+        return $course;
+    }
+
+    /**
+     * Update the course with the given data
+     *
+     * @param int $id Id of course
+     * @param array $data Data for updating course
+     * @return App\Models\Course The updated course
+     */
+    public function update($id, $data = [])
+    {
+        $course = Course::find($id);
+
+        if (!$course) {
+            return null;
+        }
+
+        $course->update([
+            'name' => $data['name'],
+            'course_code' => $data['course_code']
+        ]);
+
+        $course->professors()->sync($data['professor_ids']);
+
+        return $course;
+    }
 }

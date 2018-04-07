@@ -10,7 +10,7 @@ App.extend(Resource, Course);
 Course.prototype.prepareForUpdate = function (resource) {
     $('input[name=name]').val(resource.name);
     $('input[name=course_code]').val(resource.course_code);
-    $('input[name=meetings]').val(resource.meetings);
+    $('#professors-select').val(resource.professor_ids).change();
 };
 
 window.addEventListener('load', function () {

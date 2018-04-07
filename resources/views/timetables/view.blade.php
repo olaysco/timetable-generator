@@ -28,10 +28,10 @@
             }
 
             td {
-                border: 1px solid #000000;
                 font-size: 0.8em;
                 height: 60px;
                 text-align: center;
+                padding: 20px !important;
             }
 
             .table-head td {
@@ -55,6 +55,16 @@
                 margin-top: 20px;
                 margin-bottom: 10px;
                 font-size: 0.8em;
+            }
+
+            @media all {
+                .table-bordered>tbody>tr>td, .table-bordered>tbody>tr>th, .table-bordered>tfoot>tr>td, .table-bordered>tfoot>tr>th, .table-bordered>thead>tr>td, .table-bordered>thead>tr>th {
+                    border: 1px solid #000000 !important;
+                }
+
+                .table>tbody>tr>td, .table>tbody>tr>th, .table>tfoot>tr>td, .table>tfoot>tr>th, .table>thead>tr>td, .table>thead>tr>th {
+                    border-top: 1px solid #000000 !important;
+                }
             }
         </style>
     </head>
