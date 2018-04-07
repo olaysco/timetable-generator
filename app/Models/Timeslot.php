@@ -19,25 +19,23 @@ class Timeslot extends Model
      */
     public function containsPeriod($timePeriod)
     {
-        $edgesA = $this->getEdges($this->time);
-        $edgesB = $this->getEdges($timePeriod);
+        $edgesA = self::getParts($this->time);
+        $edgesB = self::getParts($timePeriod);
 
-        return (($edgesB[0] >= $edgesA[0]) && $edgesB[1] <= $edgesA[1]);
+        return (($edgesB[0] >= $edgesA[0]) && $edgesB[2] <= $edgesA[2]);
     }
 
     /**
      * Get the beginning and end of a given time period
      *
      * @param string $timePeriod Time period
-     * @return array Beginning and end of given time period
+     * @return array Parts of given time period
      */
-    public function getEdges($timePeriod)
+    public static function getParts($timePeriod)
     {
-        preg_match('/(0?\d{1,2}):\d{2}\s*\-\s*(\d{2}):\d{2}/', $timePeriod, $matches);
-        $begin = $matches[1];
-        $end = $matches[2];
+        preg_match('/(0?\d{1,2}):(\d{2})\s*\-\s*(\d{2}):(\d{2})/', $timePeriod, $matches);
 
-        return [$matches[1], $matches[2]];
+        return array_slice($matches, 1);
     }
 
     /**

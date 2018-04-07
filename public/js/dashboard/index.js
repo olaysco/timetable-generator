@@ -12,7 +12,7 @@ Timetable.prototype.init = function() {
     Resource.prototype.init.call(self);
 
     $(document).on('click', '.print-btn', function(event) {
-        var url = $(event.target).attr('href');
+        var url = '/timetables/view/' + $(this).data('id');
         var printWin = window.open('', '', 'width=5,height=5');
 
         event.preventDefault();
