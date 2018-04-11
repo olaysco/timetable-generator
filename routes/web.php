@@ -17,8 +17,6 @@ Route::get('/', function() {
 
 Route::get('/dashboard', 'DashboardController@index');
 
-Auth::routes();
-
 // Routes for rooms module
 Route::resource('rooms', 'RoomsController');
 
@@ -45,12 +43,14 @@ Route::post('/users/activate', 'UsersController@activateUser');
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-Route::get('/test', function() {
-    print 'Hi';
-    $timetable = App\Models\Timetable::first();
-    event(new App\Events\TimetablesGenerated($timetable));
-});
-
-Route::get('/load', function() {
-    //return PDF::loadFile(base_path().'/storage/app/storage/timetables/timetable_7.html')->setPaper('a4', 'landscape')->stream////('download.pdf');
+// Other account related routes
+Route::get('/login', 'UsersController@showLoginPage');
+Route::post('/login', 'UsersController@loginUser');
+Route::get('/request_reset', 'UsersController@showPasswordRequestPage');
+Route::post('/request_reset', 'UsersController@requestPassword');
+Route::get('/reset_password', 'UsersController@showResetPassword');
+Route::post('/reset_password', 'UsersController@resetPassword');
+Route::get('/logout', function() {
+    Auth::logout();
+    return redirect('/');
 });

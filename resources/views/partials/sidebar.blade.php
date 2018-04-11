@@ -27,8 +27,8 @@
                 <li class="menu-link {{ ($page == 'timeslots') ? 'active' : '' }}">
                     <a href="/timeslots"><span class="fa fa-clock-o"></span><span class="text">Timeslots</span></a>
                 </li>
-                <li class="menu-link {{ ($page == 'users') ? 'active' : '' }}">
-                    <a href="/users"><span class="fa fa-user"></span><span class="text">Users</span></a>
+                <li class="menu-link">
+                    <a href="/logout"><span class="fa fa-sign-out"></span><span class="text">Log Out</span></a>
                 </li>
             </ul>
         </div>

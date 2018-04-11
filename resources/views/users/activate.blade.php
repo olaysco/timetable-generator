@@ -30,11 +30,6 @@
                                         @include('errors.form_errors')
 
                                         <div class="form-group">
-                                            <label>Username</label>
-                                            <input type="text" class="form-control" placeholder="Username" name="username" value="{{ $user->username }}">
-                                        </div>
-
-                                        <div class="form-group">
                                             <label>Name</label>
                                             <input type="text" class="form-control" placeholder="Name" name="name" value="{{ $user->name }}">
                                         </div>

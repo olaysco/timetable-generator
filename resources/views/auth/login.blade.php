@@ -25,14 +25,9 @@
                         <div class="login-form-body">
                             <div class="row">
                                 <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                                     <form method="POST" action="{{ route('login') }}">
+                                     <form method="POST" action="{{ URL::to('/login') }}">
                                         {!! csrf_field() !!}
                                         @include('errors.form_errors')
-
-                                        <div class="form-group">
-                                            <label>Username</label>
-                                            <input type="text" class="form-control" placeholder="Username" name="username">
-                                        </div>
 
                                         <div class="form-group">
                                             <label>Password</label>
@@ -41,6 +36,10 @@
 
                                         <div class="form-group">
                                             <input type="submit" name="submit" value="SIGN IN" class="btn btn-lg btn-block btn-custom">
+                                        </div>
+
+                                        <div class="form-group">
+                                            <a href="/request_reset" class="btn btn-lg btn-block btn-primary">Forgot Password?</a>
                                         </div>
                                     </form>
                                 </div>

@@ -10,9 +10,9 @@
 		@include('partials.styles')
 		@yield('styles')
 
-		<title>Sign In | Timetable</title>
+		<title>Reset Password | Timetable</title>
     </head>
-    
+
     <body class="login-page">
         <div class="container">
             <div class="row">
@@ -25,19 +25,17 @@
                         <div class="login-form-body">
                             <div class="row">
                                 <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                                     <form>
+                                     <form method="POST" action="{{ URL::to('/reset_password') }}">
+                                        {!! csrf_field() !!}
+                                        @include('errors.form_errors')
+
                                         <div class="form-group">
-                                            <label>Username</label>
-                                            <input type="text" class="form-control" placeholder="Username">
+                                            <label>Token</label>
+                                            <input type="text" class="form-control" placeholder="Enter token sent to your mail" name="token">
                                         </div>
 
                                         <div class="form-group">
-                                            <label>Password</label>
-                                            <input type="password" class="form-control" placeholder="Password">
-                                        </div>
-
-                                        <div class="form-group">
-                                            <input type="submit" name="submit" value="SIGN IN" class="btn btn-lg btn-block btn-custom">
+                                            <input type="submit" name="submit" value="SUBMIT" class="btn btn-lg btn-block btn-primary">
                                         </div>
                                     </form>
                                 </div>
