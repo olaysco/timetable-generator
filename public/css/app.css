@@ -247,10 +247,12 @@ tbody tr:nth-of-type(odd) {
 
 .card {
     padding: 20px;
+    border-radius: 10px;
 }
 
 .icon {
     font-size: 2.5em;
+    color: azure;
 }
 
 .card-body {
