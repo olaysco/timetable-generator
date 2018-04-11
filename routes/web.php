@@ -50,6 +50,8 @@ Route::get('/request_reset', 'UsersController@showPasswordRequestPage');
 Route::post('/request_reset', 'UsersController@requestPassword');
 Route::get('/reset_password', 'UsersController@showResetPassword');
 Route::post('/reset_password', 'UsersController@resetPassword');
+Route::get('/my_account', 'UsersController@showAccountPage');
+Route::post('/my_account', 'UsersController@updateAccount');
 Route::get('/logout', function() {
     Auth::logout();
     return redirect('/');

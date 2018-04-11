@@ -187,4 +187,56 @@ class UsersController extends Controller
         Auth::login($user);
         return redirect('/');
     }
+
+    /**
+     * Show account settings page
+     *
+     */
+    public function showAccountPage()
+    {
+        $user = Auth::user();
+        $questions = SecurityQuestion::all();
+
+        return view('users.account', compact('user', 'questions'));
+    }
+
+    /**
+     * Update user account
+     *
+     * @param Illuminate\Http\Request $request The HTTP request
+     */
+    public function updateAccount(Request $request)
+    {
+        $rules = [
+            'name' => 'required',
+            'security_question_id' => 'required',
+            'security_question_answer' => 'required'
+        ];
+
+        if ($request->has('password') && $request->password) {
+            $rules['password'] = 'confirmed';
+            $rules['old_password'] = 'required';
+        };
+
+        $this->validate($request, $rules);
+
+        $user = Auth::user();
+        $data = [
+            'name' => $request->name,
+            'security_question_id' => $request->security_question_id,
+            'security_question_answer' => $request->security_question_answer
+        ];
+
+        if ($request->has('password') && $request->password) {
+            if (!Hash::check($request->old_password, $user->password)) {
+                return redirect()->back()->withErrors(['Current password is invalid']);
+            }
+
+            $data['password'] = bcrypt($request->password);
+        }
+
+        $user->update($data);
+
+        return redirect()->back()->with('status', 'Your account has been updated');
+    }
 }
