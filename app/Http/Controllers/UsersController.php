@@ -1,14 +1,56 @@
 <?php
 namespace App\Http\Controllers;
 
+use DB;
 use Auth;
+use Hash;
+use Carbon\Carbon;
+use App\Services\Helpers;
 use Illuminate\Http\Request;
+
+use App\Events\PasswordResetRequested;
 
 use App\Models\User;
 use App\Models\SecurityQuestion;
 
 class UsersController extends Controller
 {
+    /**
+     * Show page for logging user in
+     */
+    public function showLoginPage()
+    {
+        return view('auth.login');
+    }
+
+    /**
+     * Log in a user
+     *
+     * @param Illuminate\Http\Request $request The HTTP request
+     */
+    public function loginUser(Request $request)
+    {
+        $rules = [
+            'password' => 'required'
+        ];
+
+        $this->validate($request, $rules);
+
+        $user = User::first();
+
+        if (!$user) {
+            return redirect()->back()->withErrors(['No user account has been set up yet']);
+        }
+
+        if (!Hash::check($request->password, $user->password)) {
+            return redirect()->back()->withErrors(['Password is invalid']);
+        }
+
+        Auth::login($user);
+
+        return redirect('/');
+    }
+
     /**
      * Show account activation page where new user can set up his
      * account
@@ -38,7 +80,6 @@ class UsersController extends Controller
         }
 
         $rules = [
-            'username' => 'required|unique:users,username,' . $user->id,
             'name' => 'required',
             'password' => 'required|confirmed',
             'security_question_id' => 'required|exists:security_questions,id',
@@ -53,7 +94,6 @@ class UsersController extends Controller
         $this->validate($request, $rules, $messages);
 
         $user->update([
-            'username' => $request->username,
             'name' => $request->name,
             'password' => bcrypt($request->password),
             'security_question_id' => $request->security_question_id,
@@ -61,6 +101,90 @@ class UsersController extends Controller
             'activated' => true
         ]);
 
+        return redirect('/');
+    }
+
+    /**
+     * Show the page to reuqest new password
+     */
+    public function showPasswordRequestPage()
+    {
+        $user = User::first();
+
+        return view('users.password_request', compact('user'));
+    }
+
+    /**
+     * Handle the request to reset password after user forgets
+     * password
+     *
+     * @param Illuminate\Http\Request $request The HTTP request
+     */
+    public function requestPassword(Request $request)
+    {
+        $rules = [
+            'email' => 'required|email',
+            'security_question_answer' => 'required'
+        ];
+
+        $this->validate($request, $rules);
+
+        $user = User::first();
+
+        if ($user->security_question_answer != $request->security_question_answer) {
+            return redirect()->back()->withErrors(['Your answer is not valid']);
+        }
+
+        $token = Helpers::generateRandomString();
+
+        DB::table('password_resets')->delete();
+        DB::table('password_resets')->insert([
+            'user_id' => $user->id,
+            'token' => $token,
+            'expiry_date' => Carbon::now()->addDay()->toDateTimeString()
+        ]);
+
+        event(new PasswordResetRequested($token, $request->email));
+
+        return redirect('/reset_password');
+    }
+
+    /**
+     * Show page for password reset
+     *
+     */
+    public function showResetPassword()
+    {
+        return view('users.password_reset');
+    }
+
+    /**
+     * Handle reset of password
+     */
+    public function resetPassword(Request $request)
+    {
+        $token = DB::table('password_resets')->first();
+
+        $rules = [
+            'token' => 'required'
+        ];
+
+        $this->validate($request, $rules);
+
+        if (!$token || ($token && $token->token != $request->token)) {
+            return redirect()->back()->withErrors(['Invalid token']);
+        }
+
+        if (Carbon::now()->gt(Carbon::parse($token->expiry_date))) {
+            return redirect()->back()->withErrors(['Token has expired.Please request for new token']);
+        }
+
+        $user = User::first();
+        $user->update([
+            'activated' => false
+        ]);
+
+        Auth::login($user);
         return redirect('/');
     }
 }

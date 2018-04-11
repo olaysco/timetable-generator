@@ -27,8 +27,8 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
 
-    public function timetables()
+    public function security_question()
     {
-        return $this->hasMany(Timetable::class, 'user_id');
+        return $this->belongsTo(SecurityQuestion::class, 'security_question_id');
     }
 }

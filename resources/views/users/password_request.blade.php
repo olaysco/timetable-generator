@@ -10,7 +10,7 @@
 		@include('partials.styles')
 		@yield('styles')
 
-		<title>Sign In | Timetable</title>
+		<title>Reset Password | Timetable</title>
     </head>
 
     <body class="login-page">
@@ -25,21 +25,26 @@
                         <div class="login-form-body">
                             <div class="row">
                                 <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                                     <form method="POST" action="{{ URL::to('/login') }}">
+                                     <form method="POST" action="{{ URL::to('/request_reset') }}">
                                         {!! csrf_field() !!}
                                         @include('errors.form_errors')
 
                                         <div class="form-group">
-                                            <label>Password</label>
-                                            <input type="password" class="form-control" placeholder="Password" name="password">
+                                            <label>Enter your email</label>
+                                            <input type="text" class="form-control" placeholder="Email" name="email">
                                         </div>
 
                                         <div class="form-group">
-                                            <input type="submit" name="submit" value="SIGN IN" class="btn btn-lg btn-block btn-custom">
+                                            <p>{{ $user->security_question->question }}</p>
                                         </div>
 
                                         <div class="form-group">
-                                            <a href="/request_reset" class="btn btn-lg btn-block btn-primary">Forgot Password?</a>
+                                            <label>Your Answer</label>
+                                            <input type="text" class="form-control" name="security_question_answer">
+                                        </div>
+
+                                        <div class="form-group">
+                                            <input type="submit" name="submit" value="SUBMIT" class="btn btn-lg btn-block btn-primary">
                                         </div>
                                     </form>
                                 </div>
