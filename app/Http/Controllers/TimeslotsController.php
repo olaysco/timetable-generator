@@ -26,6 +26,8 @@ class TimeslotsController extends Controller
      */
     public function __construct(TimeslotsService $service)
     {
+        $this->middleware('auth');
+        $this->middleware('activated');
         $this->service = $service;
     }
 

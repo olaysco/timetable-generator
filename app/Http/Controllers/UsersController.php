@@ -15,6 +15,10 @@ use App\Models\SecurityQuestion;
 
 class UsersController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth', ['only' => ['showAccountPage', 'showActivationPage', 'updateAccount' ]]);
+    }
     /**
      * Show page for logging user in
      */

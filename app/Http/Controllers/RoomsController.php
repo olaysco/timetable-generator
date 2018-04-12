@@ -24,6 +24,8 @@ class RoomsController extends Controller
      */
     public function __construct(RoomsService $service)
     {
+        $this->middleware('auth');
+        $this->middleware('activated');
         $this->service = $service;
     }
 
