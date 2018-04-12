@@ -25,7 +25,7 @@ class CoursesTableSeeder extends Seeder
                 'course_code' => 'CSM 303'
             ],
             [
-                'name' => 'Embedded Systems',
+                'name' => 'Survey Of Programming Languages',
                 'course_code' => 'CSM 304'
             ],
             [
@@ -45,20 +45,72 @@ class CoursesTableSeeder extends Seeder
                 'course_code' => 'CSM 308'
             ],
             [
-                'name' => 'Computer Networks',
-                'course_code' => 'CSM 400'
+                'name' => 'Data Structures And Algorithms II',
+                'course_code' => 'CSM 311'
             ],
             [
-                'name' => 'Computer Security',
+                'name' => 'Operations Research II',
+                'course_code' => 'CSM 312'
+            ],
+            [
+                'name' => 'Real time and Embedded Systems',
+                'course_code' => 'CSM 313'
+            ],
+            [
+                'name' => 'Ecommerce',
+                'course_code' => 'CSM 314'
+            ],
+            [
+                'name' => 'Accounting',
+                'course_code' => 'CSM 315'
+            ],
+            [
+                'name' => 'Computer Networks',
                 'course_code' => 'CSM 401'
             ],
             [
-                'name' => 'Information Systems',
+                'name' => 'Computer Security',
                 'course_code' => 'CSM 402'
             ],
             [
-                'name' => 'Expert Systems',
+                'name' => 'Information Systems',
                 'course_code' => 'CSM 403'
+            ],
+            [
+                'name' => 'Expert Systems',
+                'course_code' => 'CSM 404'
+            ],
+            [
+                'name' => 'Computer Vision',
+                'course_code' => 'CSM 405'
+            ],
+            [
+                'name' => 'Software Engineering I',
+                'course_code' => 'CSM 406'
+            ],
+            [
+                'name' => 'Cyber Security',
+                'course_code' => 'CSM 407'
+            ],
+            [
+                'name' => 'Robotics',
+                'course_code' => 'CSM 411'
+            ],
+            [
+                'name' => 'Graph Theory',
+                'course_code' => 'CSM 412'
+            ],
+            [
+                'name' => 'Number Theory',
+                'course_code' => 'CSM 413'
+            ],
+            [
+                'name' => 'French',
+                'course_code' => 'CSM 414'
+            ],
+            [
+                'name' => 'Software Engineering II',
+                'course_code' => 'CSM 415'
             ]
         ]);
     }
