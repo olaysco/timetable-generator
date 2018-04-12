@@ -9,6 +9,7 @@ use App\Services\CollegeClassesService;
 use App\Models\Room;
 use App\Models\Course;
 use App\Models\CollegeClass;
+use App\Models\AcademicPeriod;
 
 class CollegeClassesController extends Controller
 {
@@ -44,12 +45,14 @@ class CollegeClassesController extends Controller
 
         $rooms = Room::all();
         $courses = Course::all();
+        $academicPeriods = AcademicPeriod::all();
+
 
         if ($request->ajax()) {
             return view('classes.table', compact('classes'));
         }
 
-        return view('classes.index', compact('classes', 'rooms', 'courses'));
+        return view('classes.index', compact('classes', 'rooms', 'courses', 'academicPeriods'));
     }
 
     /**
@@ -85,14 +88,6 @@ class CollegeClassesController extends Controller
     public function show($id)
     {
         $class = $this->service->show($id);
-
-        $roomIds = [];
-
-        foreach ($class->unavailable_rooms as $room) {
-            $roomIds[] = $room->id;
-        }
-
-        $class->room_ids = $roomIds;
 
         if ($class) {
             return Response::json($class, 200);
