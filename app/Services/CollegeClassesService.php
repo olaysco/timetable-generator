@@ -44,6 +44,30 @@ class CollegeClassesService extends AbstractService
     }
 
     /**
+     * Get class with given id
+     *
+     * @param int $id The class' id
+     */
+    public function show($id)
+    {
+        $class = parent::show($id);
+
+        if (!$class) {
+            return null;
+        }
+
+        $roomIds = [];
+
+        foreach ($class->unavailable_rooms as $room) {
+            $roomIds[] = $room->id;
+        }
+
+        $class->room_ids = $roomIds;
+
+        return $class;
+    }
+
+    /**
      * Update the class with the given id
      *
      * @param int $id The ID of the class

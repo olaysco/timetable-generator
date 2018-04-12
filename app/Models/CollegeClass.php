@@ -26,6 +26,6 @@ class CollegeClass extends Model
     public function courses()
     {
         return $this->belongsToMany(Course::class, 'courses_classes', 'class_id', 'course_id')
-            ->withPivot(['meetings']);
+            ->withPivot(['meetings', 'academic_period_id']);
     }
 }
