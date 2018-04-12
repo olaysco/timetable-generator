@@ -36,6 +36,10 @@ class CoursesService extends AbstractService
             return null;
         }
 
+        if (!isset($data['professor_ids'])) {
+            $data['professor_ids'] = [];
+        }
+
         $course->professors()->sync($data['professor_ids']);
 
         return $course;

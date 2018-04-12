@@ -26,32 +26,32 @@ class ClassesTableSeeder extends Seeder
             [
                 'course_id' => 1,
                 'class_id' => 1,
-                'meetings' => 2
+                'meetings' => 1
             ],
             [
                 'course_id' => 2,
                 'class_id' => 1,
-                'meetings' => 2
+                'meetings' => 1
             ],
             [
                 'course_id' => 3,
                 'class_id' => 1,
-                'meetings' => 3
+                'meetings' => 2
             ],
             [
                 'course_id' => 4,
                 'class_id' => 1,
-                'meetings' => 2
+                'meetings' => 1
             ],
             [
                 'course_id' => 5,
                 'class_id' => 2,
-                'meetings' => 2
+                'meetings' => 1
             ],
             [
                 'course_id' => 6,
                 'class_id' => 2,
-                'meetings' => 2
+                'meetings' => 1
             ],
             [
                 'course_id' => 7,
@@ -61,7 +61,7 @@ class ClassesTableSeeder extends Seeder
             [
                 'course_id' => 8,
                 'class_id' => 2,
-                'meetings' => 2
+                'meetings' => 1
             ]
         ]);
     }
