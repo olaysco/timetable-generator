@@ -160,7 +160,7 @@ class TimeslotsController extends Controller
         $timeslots = Timeslot::all();
 
         foreach ($timeslots as $timeslot) {
-            if (($timeslot->time != $data['time']) && $timeslot->containsPeriod($data['time'])) {
+            if (($timeslot->id != $id) && $timeslot->containsPeriod($data['time'])) {
                 $errors = [ $data['time'] . ' falls within another timeslot (' . $timeslot->time
                     . ').Please adjust timeslots'];
                 return Response::json(['errors' => $errors], 422);
