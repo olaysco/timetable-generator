@@ -27,6 +27,18 @@
                             </div>
 
                             <div class="form-group">
+                                <label>Academic Period</label>
+                                <div class="select2-wrapper">
+                                    <select class="form-control select2" name="academic_period_id">
+                                        <option value="" selected>Select an academic period</option>
+                                        @foreach ($academicPeriods as $period)
+                                        <option value="{{ $period->id }}">{{ $period->name }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
                                 <label>Select Days</label>
 
                                 @foreach ($days as $day)
