@@ -22,6 +22,8 @@ CollegeClass.prototype.init = function() {
 
         $('#course-' + id + '-container').remove();
     });
+
+    self.addCourse();
 };
 
 CollegeClass.prototype.addCourse = function(data) {
@@ -35,11 +37,13 @@ CollegeClass.prototype.addCourse = function(data) {
         $('#courses-container').prepend(template);
         $('[name=course-' + id + ']').val(data.course_id).change();
         $('[name=course-' + id + '-meetings]').val(data.meetings);
+        $('[name=period-' + id + ']').val(data.academic_period_id).change();
     } else {
         $('#courses-container').append(template);
     }
 
     $('[name=course-' + id +']').select2();
+    $('[name=period-' + id + ']').select2();
 };
 
 CollegeClass.prototype.prepareForUpdate = function (resource) {
@@ -54,6 +58,7 @@ CollegeClass.prototype.prepareForUpdate = function (resource) {
         var course = this;
         var data = {
             course_id: course.id,
+            academic_period_id: course.pivot.academic_period_id,
             meetings: course.pivot.meetings
         };
         self.addCourse(data);
@@ -91,11 +96,13 @@ CollegeClass.prototype.submitResourceForm = function() {
     $('.course-form').each(function(index) {
         var $container = $(this);
         var courseId = $container.find('.course-select').val();
+        var periodId = $container.find('.period-select').val();
         var meetings = $container.find('.course-meetings').val();
 
         if (courseId && meetings) {
             courses[courseId] = {
-                'meetings' : meetings
+                'meetings' : meetings,
+                'academic_period_id': periodId
             };
         }
     });

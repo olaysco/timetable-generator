@@ -18,7 +18,13 @@ class CreateCoursesClassesTable extends Migration
             $table->integer('course_id')->unsigned();
             $table->integer('class_id')->unsigned();
             $table->integer('meetings')->unsigned();
+            $table->integer('academic_period_id')->unsigned();
             $table->timestamps();
+
+            $table->foreign('academic_period_id')
+                ->references('id')
+                ->on('academic_periods')
+                ->onDelete('cascade');
 
             $table->foreign('course_id')
                 ->references('id')

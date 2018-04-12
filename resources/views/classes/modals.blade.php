@@ -1,6 +1,6 @@
 <!-- Modal for adding a new room -->
 <div class="modal custom-modal" id="resource-modal">
-    <div class="modal-dialog">
+    <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal">
@@ -30,31 +30,21 @@
                                 <label>Courses <i class="fa fa-plus side-icon" title="Add Course" id="course-add"></i></label>
 
                                 <div class="row">
-                                    <div class="col-md-7 col-sm-7 col-xs-12">
+                                    <div class="col-md-4 col-sm-7 col-xs-12">
                                         Course
                                     </div>
-                                    <div class="col-md-5 col-sm-5 col-xs-12">
+
+                                    <div class="col-md-4 col-sm-12 col-xs-12">
+                                        Academic Period
+                                    </div>
+
+                                    <div class="col-md-3 col-sm-5 col-xs-12">
                                         Meetings Per Week
                                     </div>
                                 </div>
 
                                 <div id="courses-container">
-                                    <div class="row course-form" style="margin-bottom: 5px">
-                                        <div class="col-md-7 col-sm-7 col-xs-12">
-                                            <div class="select2-wrapper">
-                                                <select class="form-control course-select select2" name="course-1">
-                                                    <option value="" selected>Select a course</option>
-                                                    @foreach ($courses as $course)
-                                                    <option value="{{ $course->id }}">{{ $course->name }}</option>
-                                                    @endforeach
-                                                </select>
-                                            </div>
-                                        </div>
 
-                                        <div class="col-md-4 col-sm-4 col-xs-10">
-                                            <input type="number" class="form-control course-meetings" name="course-1-meetings">
-                                        </div>
-                                    </div>
                                 </div>
                             </div>
 
@@ -99,7 +89,7 @@
 
 <div id="course-template" class="hidden">
      <div class="row course-form appended-course" id="course-{ID}-container" style="margin-bottom: 5px">
-        <div class="col-md-7 col-sm-7 col-xs-12">
+        <div class="col-md-4 col-sm-6 col-xs-12">
             <div class="select2-wrapper">
                 <select class="form-control course-select" name="course-{ID}">
                     <option value="" selected>Select a course</option>
@@ -110,7 +100,18 @@
             </div>
         </div>
 
-        <div class="col-md-4 col-sm-4 col-xs-10">
+        <div class="col-md-4 col-sm-6 col-xs-12">
+            <div class="select2-wrapper">
+                <select class="form-control period-select" name="period-{ID}">
+                    <option value="" selected>Select an academic period</option>
+                    @foreach ($academicPeriods as $period)
+                    <option value="{{ $period->id }}">{{ $period->name }}</option>
+                    @endforeach
+                </select>
+            </div>
+        </div>
+
+        <div class="col-md-3 col-sm-4 col-xs-10">
             <input type="number" class="form-control course-meetings" name="course-{ID}-meetings">
         </div>
 

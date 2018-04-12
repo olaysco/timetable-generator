@@ -1,6 +1,7 @@
 <?php
 namespace App\Services\GeneticAlgorithm;
 
+use DB;
 use App\Events\TimetablesGenerated;
 
 use App\Models\Course;
@@ -73,7 +74,18 @@ class TimetableGA
         }
 
         // Set up courses
-        $courses = Course::all();
+        $results = DB::table('courses_classes')
+            ->where('academic_period_id', $this->timetable->academic_period_id)
+            ->selectRaw('distinct id')
+            ->get();
+
+        $semesterCourseIds = [];
+
+        foreach ($results as $result) {
+            $semesterCourseIds[] = $result->id;
+        }
+
+        $courses = Course::whereIn('id', $semesterCourseIds)->get();
 
         foreach ($courses as $course) {
             $professorIds  = [];
@@ -90,8 +102,9 @@ class TimetableGA
 
         foreach ($classes as $class) {
             $courseIds = [];
+            $courses = $class->courses()->wherePivot('academic_period_id', $this->timetable->academic_period_id)->get();
 
-            foreach ($class->courses as $course) {
+            foreach ($courses as $course) {
                 $courseIds[] = $course->id;
             }
 

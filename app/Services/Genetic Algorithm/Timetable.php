@@ -419,10 +419,7 @@ class Timetable
                 }
             }
 
-            // Constraint to ensure that no group is scheduled to have a lecture in a room permanently not
-            // available to them
-            \Log::info('Group '. $this->getGroup($classA->getGroupId())->getId());
-            \Log::info($this->getGroup($classA->getGroupId())->getUnavailableRooms());
+
             if (in_array($classA->getRoomId(), $this->getGroup($classA->getGroupId())->getUnavailableRooms())
             ) {
                 $clashes++;
