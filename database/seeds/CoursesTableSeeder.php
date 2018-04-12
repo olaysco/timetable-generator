@@ -14,19 +14,35 @@ class CoursesTableSeeder extends Seeder
         DB::table('courses')->insert([
             [
                 'name' => 'Computer Architecture',
-                'course_code' => 'CSM 300'
-            ],
-            [
-                'name' => 'Computer Graphics',
                 'course_code' => 'CSM 301'
             ],
             [
-                'name' => 'Data Structures and Algorithms',
+                'name' => 'Computer Graphics',
                 'course_code' => 'CSM 302'
+            ],
+            [
+                'name' => 'Data Structures and Algorithms I',
+                'course_code' => 'CSM 303'
             ],
             [
                 'name' => 'Embedded Systems',
                 'course_code' => 'CSM 304'
+            ],
+            [
+                'name' => 'System Analysis',
+                'course_code' => 'CSM 305'
+            ],
+            [
+                'name' => 'Artificial Intelligence',
+                'course_code' => 'CSM 306'
+            ],
+            [
+                'name' => 'Operations Research I',
+                'course_code' => 'CSM 307'
+            ],
+            [
+                'name' => 'Web Development',
+                'course_code' => 'CSM 308'
             ],
             [
                 'name' => 'Computer Networks',
