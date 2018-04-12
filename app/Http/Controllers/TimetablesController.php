@@ -48,10 +48,15 @@ class TimetablesController extends Controller
     public function store(Request $request)
     {
         $rules = [
-            'name' => 'required'
+            'name' => 'required',
+            'academic_period_id' => 'required'
         ];
 
-        $this->validate($request, $rules);
+        $messages = [
+            'academic_period_id.required' => 'An academic period must be selected'
+        ];
+
+        $this->validate($request, $rules, $messages);
 
         $errors = [];
         $dayIds = [];
@@ -80,6 +85,7 @@ class TimetablesController extends Controller
 
         $timetable = Timetable::create([
             'user_id' => Auth::user()->id,
+            'academic_period_id' => $request->academic_period_id,
             'status' => 'IN PROGRESS',
             'name' => $request->name
         ]);
