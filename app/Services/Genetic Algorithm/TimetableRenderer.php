@@ -106,7 +106,7 @@ class TimetableRenderer
         $groupId = null;
 
         while ($chromosomeIndex < count($chromosome)) {
-            if ($scheme[$schemeIndex][0] == 'G') {
+            while ($scheme[$schemeIndex][0] == 'G') {
                 $groupId = substr($scheme[$schemeIndex], 1);
                 $schemeIndex += 1;
             }
