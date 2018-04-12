@@ -48,7 +48,6 @@ CollegeClass.prototype.addCourse = function(data) {
 
 CollegeClass.prototype.prepareForUpdate = function (resource) {
     var self = this;
-    console.log(resource);
 
     $('input[name=name]').val(resource.name);
     $('input[name=size]').val(resource.size);
