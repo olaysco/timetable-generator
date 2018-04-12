@@ -98,12 +98,6 @@ class ClassesTableSeeder extends Seeder
                 'academic_period_id' => 2
             ],
             [
-                'course_id' => 12,
-                'class_id' => 1,
-                'meetings' => 1,
-                'academic_period_id' => 2
-            ],
-            [
                 'course_id' => 13,
                 'class_id' => 1,
                 'meetings' => 1,
@@ -143,13 +137,13 @@ class ClassesTableSeeder extends Seeder
                 'course_id' => 19,
                 'class_id' => 2,
                 'meetings' => 1,
-                'academic_period_id' => 1
+                'academic_period_id' => 2
             ],
             [
                 'course_id' => 20,
                 'class_id' => 2,
                 'meetings' => 1,
-                'academic_period_id' => 1
+                'academic_period_id' => 2
             ],
             [
                 'course_id' => 21,

@@ -33,7 +33,7 @@
                                     <select id="courses-select" name="course_ids[]" class="form-control select2" multiple>
                                         <option value="">Select courses</option>
                                         @foreach ($courses as $course)
-                                         <option value="{{ $course->id }}">{{ $course->name }}</option>
+                                         <option value="{{ $course->id }}">{{ $course->course_code }} {{ $course->name }}</option>
                                         @endforeach
                                     </select>
                                 </div>

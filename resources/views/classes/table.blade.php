@@ -18,18 +18,25 @@
                     <td>{{ $class->name }}</td>
                     <td>{{ $class->size }}</td>
                     <td>
-                        <ul>
-                            @foreach ($class->courses as $course)
+                        @foreach ($academicPeriods as $period)
+                            {{ $period->name }}
+                            <ul>
+                            @foreach ($class->courses()->wherePivot('academic_period_id', $period->id)->get() as $course)
                                 <li>{{ $course->course_code . " " . $course->name }}</li>
                             @endforeach
-                        </ul>
+                            </ul>
+                        @endforeach
                     </td>
                     <td>
+                        @if (count($class->unavailable_rooms))
                         <ul>
                             @foreach ($class->unavailable_rooms as $room)
                                 <li>{{ $room->name }}</li>
                             @endforeach
                         </ul>
+                        @else
+                        None specified
+                        @endif
                     </td>
                     <td>
                     <button class="btn btn-primary btn-sm resource-update-btn" data-id="{{ $class->id }}"><i class="fa fa-pencil"></i></button>
