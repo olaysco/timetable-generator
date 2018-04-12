@@ -25,7 +25,7 @@
                     <a href="/classes"><span class="fa fa-users"></span><span class="text">Classes</span></a>
                 </li>
                 <li class="menu-link {{ ($page == 'timeslots') ? 'active' : '' }}">
-                    <a href="/timeslots"><span class="fa fa-clock-o"></span><span class="text">Timeslots</span></a>
+                    <a href="/timeslots"><span class="fa fa-clock-o"></span><span class="text">Periods</span></a>
                 </li>
                 <li class="menu-link {{ ($page == 'my_account') ? 'active' : '' }}">
                     <a href="/my_account"><span class="fa fa-user"></span><span class="text">My Account</span></a>
