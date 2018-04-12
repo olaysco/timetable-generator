@@ -76,13 +76,13 @@ class TimetableGA
         // Set up courses
         $results = DB::table('courses_classes')
             ->where('academic_period_id', $this->timetable->academic_period_id)
-            ->selectRaw('distinct id')
+            ->selectRaw('distinct course_id')
             ->get();
 
         $semesterCourseIds = [];
 
         foreach ($results as $result) {
-            $semesterCourseIds[] = $result->id;
+            $semesterCourseIds[] = $result->course_id;
         }
 
         $courses = Course::whereIn('id', $semesterCourseIds)->get();
