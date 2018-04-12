@@ -7,6 +7,7 @@ use App\Services\DashboardService;
 
 use App\Models\Day;
 use App\Models\Timetable;
+use App\Models\AcademicPeriod;
 
 class DashboardController extends Controller
 {
@@ -29,6 +30,7 @@ class DashboardController extends Controller
         $data = $this->service->getData();
         $timetables = Timetable::orderBy('created_at', 'DESC')->paginate(10);
         $days = Day::all();
-        return view('dashboard.index', compact('data', 'timetables', 'days'));
+        $academicPeriods = AcademicPeriod::all();
+        return view('dashboard.index', compact('data', 'timetables', 'days', 'academicPeriods'));
     }
 }
