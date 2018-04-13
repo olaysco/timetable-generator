@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use DB;
 use App\Models\Course;
 
 class CoursesService extends AbstractService
@@ -19,6 +20,10 @@ class CoursesService extends AbstractService
      * @var bool
      */
     protected $showWithRelations = true;
+
+    protected $customFilters = [
+        'no_professor' => 'getCoursesWithNoProfessors'
+    ];
 
     /**
      * Save a new course in the db
@@ -89,8 +94,29 @@ class CoursesService extends AbstractService
             'course_code' => $data['course_code']
         ]);
 
+        if (!isset($data['professor_ids'])) {
+            $data['professor_ids'] = [];
+        }
+
+
         $course->professors()->sync($data['professor_ids']);
 
         return $course;
+    }
+
+    /**
+     * Return query with filter applied to select courses with no professor added for them
+     */
+    public function getCoursesWithNoProfessors($query)
+    {
+        $courseIds = [];
+        $coursesQuery = 'SELECT id FROM courses WHERE id NOT IN (SELECT DISTINCT course_id FROM courses_professors)';
+        $results = DB::select(DB::Raw($coursesQuery));
+
+        foreach ($results as $result) {
+            $courseIds[] = $result->id;
+        }
+
+        return $query->whereIn('id', $courseIds);
     }
 }

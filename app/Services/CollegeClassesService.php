@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use DB;
 use App\Models\CollegeClass;
 
 class CollegeClassesService extends AbstractService
@@ -19,6 +20,22 @@ class CollegeClassesService extends AbstractService
      * @var bool
      */
     protected $showWithRelations = true;
+
+    protected $customFilters = [
+        'no_course' => 'getClassesWithNoCourse'
+    ];
+
+    /**
+     * Get a listing of college classes with necessary filtering
+     * applied
+     *
+     */
+    public function all($data = [])
+    {
+        $classes = parent::all($data);
+
+        return $classes;
+    }
 
     /**
      * Add a new college class
@@ -98,5 +115,21 @@ class CollegeClassesService extends AbstractService
         $class->courses()->sync($data['courses']);
 
         return $class;
+    }
+
+    /**
+     * Return query with filter applied to select classes with no course added for them
+     */
+    public function getClassesWithNoCourse($query)
+    {
+        $classIds = [];
+        $classesQuery = 'SELECT id FROM classes WHERE id NOT IN (SELECT DISTINCT class_id FROM courses_classes)';
+        $results = DB::select(DB::Raw($classesQuery));
+
+        foreach ($results as $result) {
+            $classIds[] = $result->id;
+        }
+
+        return $query->whereIn('id', $classIds);
     }
 }

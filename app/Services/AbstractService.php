@@ -20,6 +20,8 @@ abstract class AbstractService
      */
     protected $showWithRelations = false;
 
+    protected $customFilters = [];
+
     /**
      * Get all resources of this model
      *
@@ -44,6 +46,12 @@ abstract class AbstractService
         // Load resources with their relations
         if ($this->showWithRelations()) {
             $query = $query->with($this->model()->getRelations());
+        }
+
+        // Pass query through functions for custom filtering
+        if (isset($data['filter'])) {
+            $func = $this->customFilters[$data['filter']];
+            $query = $this->$func($query);
         }
 
         // Deal with pagination of resources.
