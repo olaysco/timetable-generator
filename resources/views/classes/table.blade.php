@@ -20,11 +20,16 @@
                     <td>
                         @foreach ($academicPeriods as $period)
                             {{ $period->name }}
+                            <?php $courses = $class->courses()->wherePivot('academic_period_id', $period->id)->get(); ?>
+                            @if (count($courses))
                             <ul>
-                            @foreach ($class->courses()->wherePivot('academic_period_id', $period->id)->get() as $course)
+                            @foreach ($courses as $course)
                                 <li>{{ $course->course_code . " " . $course->name }}</li>
                             @endforeach
                             </ul>
+                            @else
+                            <p>No courses added for this period</p>
+                            @endif
                         @endforeach
                     </td>
                     <td>
