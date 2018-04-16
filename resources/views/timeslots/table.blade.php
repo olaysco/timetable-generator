@@ -22,7 +22,7 @@
         </table>
         @else
         <div class="no-data text-center">
-            <p>No timeslots added yet</p>
+            <p>No matching data was found</p>
         </div>
         @endif
     </div>
