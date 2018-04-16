@@ -109,14 +109,6 @@ class CoursesService extends AbstractService
      */
     public function getCoursesWithNoProfessors($query)
     {
-        $courseIds = [];
-        $coursesQuery = 'SELECT id FROM courses WHERE id NOT IN (SELECT DISTINCT course_id FROM courses_professors)';
-        $results = DB::select(DB::Raw($coursesQuery));
-
-        foreach ($results as $result) {
-            $courseIds[] = $result->id;
-        }
-
-        return $query->whereIn('id', $courseIds);
+        return $query->havingNoProfessors();
     }
 }
