@@ -28,4 +28,12 @@ class CollegeClass extends Model
         return $this->belongsToMany(Course::class, 'courses_classes', 'class_id', 'course_id')
             ->withPivot(['meetings', 'academic_period_id']);
     }
+
+    /**
+     * Get classes with no courses set up for them
+     */
+    public function scopeHavingNoCourses($query)
+    {
+        return $query->has('courses', '<', 1);
+    }
 }

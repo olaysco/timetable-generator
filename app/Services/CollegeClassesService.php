@@ -122,14 +122,6 @@ class CollegeClassesService extends AbstractService
      */
     public function getClassesWithNoCourse($query)
     {
-        $classIds = [];
-        $classesQuery = 'SELECT id FROM classes WHERE id NOT IN (SELECT DISTINCT class_id FROM courses_classes)';
-        $results = DB::select(DB::Raw($classesQuery));
-
-        foreach ($results as $result) {
-            $classIds[] = $result->id;
-        }
-
-        return $query->whereIn('id', $classIds);
+        return $query->havingNoCourses();
     }
 }

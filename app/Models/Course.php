@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use DB;
 class Course extends Model
 {
     /**
@@ -52,5 +53,15 @@ class Course extends Model
     public function classes()
     {
         return $this->belongsToMany(CollegeClass::class, 'courses_classes', 'course_id', 'class_id');
+    }
+
+
+    /**
+     * Get courses with no professors set up for them
+     *
+     */
+    public function scopeHavingNoProfessors($query)
+    {
+        return $query->has('professors', '<', 1);
     }
 }
