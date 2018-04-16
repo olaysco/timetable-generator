@@ -29,7 +29,7 @@
         </div>
         @else
         <div class="no-data text-center">
-            <p>No rooms added yet</p>
+            <p>No matching data was found</p>
         </div>
         @endif
     </div>
