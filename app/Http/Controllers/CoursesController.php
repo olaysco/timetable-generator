@@ -36,7 +36,7 @@ class CoursesController extends Controller
         $courses = $this->service->all([
             'keyword' => $request->has('keyword') ? $request->keyword : null,
             'filter' => $request->has('filter') ? $request->filter : null,
-            'order_by' => 'name',
+            'order_by' => 'course_code',
             'paginate' => 'true',
             'per_page' => 20
         ]);
