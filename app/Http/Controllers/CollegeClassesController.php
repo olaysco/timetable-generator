@@ -50,7 +50,7 @@ class CollegeClassesController extends Controller
 
 
         if ($request->ajax()) {
-            return view('classes.table', compact('classes'));
+            return view('classes.table', compact('classes', 'academicPeriods'));
         }
 
         return view('classes.index', compact('classes', 'rooms', 'courses', 'academicPeriods'));
