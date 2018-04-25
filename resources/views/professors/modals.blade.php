@@ -27,6 +27,11 @@
                             </div>
 
                             <div class="form-group">
+                                <label>Email</label>
+                                <input type="text" name="email" class="form-control">
+                            </div>
+
+                            <div class="form-group">
                                 <label>Courses</label>
 
                                 <div class="select2-wrapper">
