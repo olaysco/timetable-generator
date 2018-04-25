@@ -27,4 +27,12 @@ class Timetable extends Model
     {
         return $this->belongsToMany(Day::class, 'timetable_days', 'timetable_id', 'day_id');
     }
+
+    /**
+     * Schedules for professors created out of this timetable
+     */
+    public function schedules()
+    {
+        return $this->hasMany(ProfessorSchedule::class, 'timetable_id');
+    }
 }
