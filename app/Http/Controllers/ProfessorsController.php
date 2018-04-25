@@ -68,6 +68,7 @@ class ProfessorsController extends Controller
     {
         $rules = [
             'name' => 'required',
+            'email' => 'email'
         ];
 
         $this->validate($request, $rules);
@@ -114,6 +115,7 @@ class ProfessorsController extends Controller
 
         $rules = [
             'name' => 'required',
+            'email' => 'email'
         ];
 
         $this->validate($request, $rules);
