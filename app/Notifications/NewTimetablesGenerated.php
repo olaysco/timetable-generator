@@ -8,6 +8,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 
 use App\Models\Timetable;
+use App\Models\ProfessorSchedule;
 
 class NewTimetablesGenerated extends Notification
 {
@@ -49,9 +50,26 @@ class NewTimetablesGenerated extends Notification
      */
     public function toMail($notifiable)
     {
+        $schedules = [];
+        $days = $this->timetable->days;
+
+        foreach ($days as $day) {
+            $schedules[$day->name] = ProfessorSchedule::with(['timetable', 'professor', 'course', 'day', 'timeslot', 'room', 'college_class'])
+                ->where('timetable_id', $this->timetable->id)
+                ->where('professor_id', $notifiable->id)
+                ->where('day_id', $day->id)
+                ->join('timeslots', 'timeslots.id', '=', 'professor_schedules.timeslot_id')
+                ->orderBy('timeslots.rank')
+                ->get();
+        }
+
+        $data = ['schedules' => $schedules];
+        $url = env('APP_URL');
+
         return (new MailMessage)
                     ->subject('Schedules for ' . $this->timetable->name)
-                    ->markdown('emails.professor_schedules')
+                    ->line('Hello ' . $notifiable->name)
+                    ->markdown('emails.professor_schedules', $data)
                     ->line('Thank you for using our application!');
     }
 

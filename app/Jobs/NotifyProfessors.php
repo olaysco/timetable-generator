@@ -34,7 +34,13 @@ class NotifyProfessors implements ShouldQueue
      */
     public function handle()
     {
-        $notifiableProfessors = Professor::whereNotNull('email')->where('email', '!=', '')->get();
+        $professorIds = $this->timetable->schedules()->pluck('professor_id');
+        \Log::info($professorIds);
+
+        $notifiableProfessors = Professor::whereNotNull('email')
+            ->where('email', '!=', '')
+            ->whereIn('id', $professorIds)
+            ->get();
 
         foreach ($notifiableProfessors as $professor) {
             $professor->notify(new NewTimetablesGenerated($this->timetable));

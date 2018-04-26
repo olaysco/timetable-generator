@@ -40,7 +40,7 @@ class TimetableRenderer
         $timeslots = TimeslotModel::orderBy('rank', 'ASC')->get();
         $classes = CollegeClassModel::all();
 
-        $tableTemplate =  Storage::get('/storage/timetables/template.html');
+        $tableTemplate =  Storage::get('/storage/templates/template.html');
 
         $content = "";
 
