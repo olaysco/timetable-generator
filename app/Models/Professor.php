@@ -2,8 +2,12 @@
 
 namespace App\Models;
 
+use Illuminate\Notifications\Notifiable;
+
 class Professor extends Model
 {
+    use Notifiable;
+
     /**
      * DB table this model uses
      *
