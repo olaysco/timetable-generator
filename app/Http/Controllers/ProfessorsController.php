@@ -67,9 +67,12 @@ class ProfessorsController extends Controller
     public function store(Request $request)
     {
         $rules = [
-            'name' => 'required',
-            'email' => 'email'
+            'name' => 'required'
         ];
+
+        if ($request->has('email') && $request->email) {
+            $rules['email'] = 'email';
+        }
 
         $this->validate($request, $rules);
 
@@ -115,8 +118,11 @@ class ProfessorsController extends Controller
 
         $rules = [
             'name' => 'required',
-            'email' => 'email'
         ];
+
+        if ($request->has('email') && $request->email) {
+            $rules['email'] = 'email';
+        }
 
         $this->validate($request, $rules);
 
