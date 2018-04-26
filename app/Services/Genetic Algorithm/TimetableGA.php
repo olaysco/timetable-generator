@@ -185,10 +185,12 @@ class TimetableGA
             $algorithm->coolTemperature();
         }
 
-        // Update the timetable data in the DB
         $solution =  $population->getFittest(0);
         $scheme = $timetable->getScheme();
+        $timetable->createClasses($solution);
+        $classes = $timetable->getClasses();
 
+        // Update the timetable data in the DB
         $this->timetable->update([
             'chromosome' => $solution->getChromosomeString(),
             'fitness' => $solution->getFitness(),
@@ -196,6 +198,26 @@ class TimetableGA
             'scheme' => $scheme,
             'status' => 'COMPLETED'
         ]);
+
+        // Save scheduled classes' information for professors
+        foreach ($classes as $class) {
+            $groupId = $class->getGroupId();
+            $timeslot = $timetable->getTimeslot($class->getTimeslotId());
+            $dayId = $timeslot->getDayId();
+            $timeslotId = $timeslot->getTimeslotId();
+            $professorId = $class->getProfessorId();
+            $moduleId = $class->getModuleId();
+            $roomId = $class->getRoomId();
+
+            $this->timetable->schedules()->create([
+                'day_id' => $dayId,
+                'timeslot_id' => $timeslotId,
+                'professor_id' => $professorId,
+                'course_id' => $moduleId,
+                'class_id' => $groupId,
+                'room_id' => $roomId
+            ]);
+        }
 
         event(new TimetablesGenerated($this->timetable));
     }

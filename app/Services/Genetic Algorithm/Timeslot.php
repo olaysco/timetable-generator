@@ -88,4 +88,9 @@ class Timeslot
     {
         return $this->dayModel->id;
     }
+
+    public function getTimeslotId()
+    {
+        return $this->timeslotModel->id;
+    }
 }
