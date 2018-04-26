@@ -16,6 +16,11 @@ class ProfessorSchedule extends Model
     protected $guarded = ['id'];
 
     /**
+     * Relations for this model
+     */
+    protected $relations = ['timetable', 'professor', 'course', 'day', 'timeslot', 'room', 'college_class'];
+
+    /**
      * Timetable for this schedule
      */
     public function timetable()
@@ -62,5 +67,13 @@ class ProfessorSchedule extends Model
     public function room()
     {
         return $this->belongsTo(Room::class, 'room_id');
+    }
+
+    /**
+     * Class for this schedule
+     */
+    public function college_class()
+    {
+        return $this->belongsTo(CollegeClass::class, 'class_id');
     }
 }
