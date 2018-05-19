@@ -40,7 +40,17 @@ class TimetableRenderer
         $timeslots = TimeslotModel::orderBy('rank', 'ASC')->get();
         $classes = CollegeClassModel::all();
 
-        $tableTemplate =  Storage::get('/storage/templates/template.html');
+        $tableTemplate = '<h3 class="text-center">{TITLE}</h3>
+                         <div style="page-break-after: always">
+                            <table class="table table-bordered">
+                                <thead>
+                                    {HEADING}
+                                </thead>
+                                <tbody>
+                                    {BODY}
+                                </tbody>
+                            </table>
+                        </div>';
 
         $content = "";
 
@@ -83,7 +93,7 @@ class TimetableRenderer
             $content .= str_replace(['{TITLE}', '{HEADING}', '{BODY}'], [$title, $header, $body], $tableTemplate);
         }
 
-        $path = 'storage/timetables/timetable_' . $this->timetable->id . '.html';
+        $path = 'public/timetables/timetable_' . $this->timetable->id . '.html';
         Storage::put($path, $content);
 
         $this->timetable->update([
