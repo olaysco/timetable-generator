@@ -63,14 +63,17 @@ class NewTimetablesGenerated extends Notification
                 ->get();
         }
 
-        $data = ['schedules' => $schedules];
-        $url = env('APP_URL');
+        $url = env('APP_URL') . '/timetables/view/' . $this->timetable->id;
+
+        $data = [
+            'schedules' => $schedules,
+            'professor' => $notifiable,
+            'url' => $url
+        ];
 
         return (new MailMessage)
                     ->subject('Schedules for ' . $this->timetable->name)
-                    ->line('Hello ' . $notifiable->name)
-                    ->markdown('emails.professor_schedules', $data)
-                    ->line('Thank you for using our application!');
+                    ->markdown('emails.professor_schedules', $data);
     }
 
     /**
