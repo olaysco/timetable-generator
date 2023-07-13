@@ -62,3 +62,9 @@ php artisan db:seed
 ```
 
 Navigate to the application URL, if asked for a password: the default password is `admin`
+
+
+...
+Got Errors while installing 
+I have PHP 7.4 installed and got these errors
+[Errors List in text file](errors.txt)
