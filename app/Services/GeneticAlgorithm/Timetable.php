@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Services\GeneticAlgorithm;
 
 use App\Models\Day;
@@ -39,6 +40,13 @@ class Timetable
      * @var array
      */
     private $timeslots;
+
+    /**
+     * Available classes
+     *
+     * @var array
+     */
+    public array $classes;
 
     /**
      * Number of classes scheduled
@@ -262,7 +270,8 @@ class Timetable
      *
      * @return Room room
      */
-    public function getRandomRoom() {
+    public function getRandomRoom()
+    {
         return $this->rooms[array_rand($this->rooms)];
     }
 
@@ -386,7 +395,7 @@ class Timetable
     /**
      * Calculate the number of clashes
      *
-     * @return $numClashes Number of clashes
+     * @return string Number of clashes
      */
     public function calcClashes()
     {
@@ -420,8 +429,7 @@ class Timetable
             }
 
 
-            if (in_array($classA->getRoomId(), $this->getGroup($classA->getGroupId())->getUnavailableRooms())
-            ) {
+            if (in_array($classA->getRoomId(), $this->getGroup($classA->getGroupId())->getUnavailableRooms())) {
                 $clashes++;
             }
 
@@ -429,9 +437,10 @@ class Timetable
             foreach ($this->classes as $id => $classB) {
                 if ($classA->getId() != $classB->getId()) {
                     if (($classA->getProfessorId() == $classB->getProfessorId())
-                        && ($classA->getTimeslotId() == $classB->getTimeslotId())) {
-                            $clashes++;
-                            break;
+                        && ($classA->getTimeslotId() == $classB->getTimeslotId())
+                    ) {
+                        $clashes++;
+                        break;
                     }
                 }
             }
@@ -485,7 +494,8 @@ class Timetable
      * Determine whether a given set of numbers are
      * consecutive
      */
-    public function areConsecutive($numbers) {
+    public function areConsecutive($numbers)
+    {
         sort($numbers);
 
         $min = $numbers[0];

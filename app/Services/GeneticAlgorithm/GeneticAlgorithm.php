@@ -102,7 +102,7 @@ class GeneticAlgorithm
      * Calculate the fitness of a given individual
      *
      * @param Individual $individual The individual
-     * @param Timetable $timetable A timetable
+     * @param \App\Services\GeneticAlgorithm\Timetable $timetable A timetable
      * @return double The fitness of the individual
      */
     public function calculateFitness($individual, $timetable)
