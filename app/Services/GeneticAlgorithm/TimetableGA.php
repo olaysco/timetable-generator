@@ -1,7 +1,7 @@
 <?php
+
 namespace App\Services\GeneticAlgorithm;
 
-use DB;
 use App\Events\TimetablesGenerated;
 
 use App\Models\Course;
@@ -10,6 +10,7 @@ use App\Models\Timeslot as TimeslotModel;
 use App\Models\Timetable as TimetableModel;
 use App\Models\Professor as ProfessorModel;
 use App\Models\CollegeClass as CollegeClassModel;
+use Illuminate\Support\Facades\DB;
 
 class TimetableGA
 {
@@ -54,7 +55,7 @@ class TimetableGA
 
         foreach ($days as $day) {
             foreach ($timeslots as $timeslot) {
-                $timeslotId = 'D'.$day->id . "T" . $timeslot->id;
+                $timeslotId = 'D' . $day->id . "T" . $timeslot->id;
                 $nextTimeslotId = $this->getNextTimeslotId($day, $timeslot);
                 $timetable->addTimeslot($timeslotId, $nextTimeslotId);
             }
@@ -161,8 +162,10 @@ class TimetableGA
         // Keep track of current generation
         $generation = 1;
 
-        while (!$algorithm->isTerminationConditionMet($population)
-            && !$algorithm->isGenerationsMaxedOut($generation, $maxGenerations)) {
+        while (
+            !$algorithm->isTerminationConditionMet($population)
+            && !$algorithm->isGenerationsMaxedOut($generation, $maxGenerations)
+        ) {
             $fittest = $population->getFittest(0);
 
             print "Generation: " . $generation . "(" . $fittest->getFitness() . ") - ";

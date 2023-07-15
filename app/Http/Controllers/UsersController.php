@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Http\Controllers;
 
 use DB;
@@ -17,7 +18,7 @@ class UsersController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth', ['only' => ['showAccountPage', 'showActivationPage', 'updateAccount' ]]);
+        $this->middleware('auth', ['only' => ['showAccountPage', 'showActivationPage', 'updateAccount']]);
     }
     /**
      * Show page for logging user in
