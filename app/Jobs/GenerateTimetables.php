@@ -18,6 +18,8 @@ class GenerateTimetables implements ShouldQueue
 
     protected $timetable;
 
+    public $timeout = 0;
+
     /**
      * Create a new job instance.
      *
@@ -35,9 +37,13 @@ class GenerateTimetables implements ShouldQueue
      */
     public function handle()
     {
-        Log::info('Generating timetable');
-        $timetableGA = new TimetableGA($this->timetable);
-        $timetableGA->run();
-        Log::info('Timetable Generated');
+        try {
+            Log::info('Generating timetable');
+            $timetableGA = new TimetableGA($this->timetable);
+            $timetableGA->run();
+            Log::info('Timetable Generated');
+        } catch (\Throwable $th) {
+            Log::error("Error while generating timetable " . $th->getMessage(), ['trace' => $th->getTrace()]);
+        }
     }
 }

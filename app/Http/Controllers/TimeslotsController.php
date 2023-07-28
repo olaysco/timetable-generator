@@ -74,7 +74,7 @@ class TimeslotsController extends Controller
         $exists = Timeslot::where('time', Timeslot::createTimePeriod($request->from, $request->to))->first();
 
         if ($exists) {
-            return Response::json(['errors' => ['This timeslot already exists']], 422);
+            return response()->json(['errors' => ['This timeslot already exists']], 422);
         }
 
         $data = $request->all();
@@ -84,9 +84,9 @@ class TimeslotsController extends Controller
 
         foreach ($timeslots as $timeslot) {
             if ($timeslot->containsPeriod($data['time'])) {
-                $errors = [ $data['time'] . ' falls within another timeslot (' . $timeslot->time
+                $errors = [$data['time'] . ' falls within another timeslot (' . $timeslot->time
                     . ').Please adjust timeslots'];
-                return Response::json(['errors' => $errors], 422);
+                return response()->json(['errors' => $errors], 422);
             }
         }
 
@@ -94,9 +94,9 @@ class TimeslotsController extends Controller
 
         if ($timeslot) {
             event(new TimeslotsUpdated());
-            return Response::json(['message' => 'Timeslot has been added'], 200);
+            return response()->json(['message' => 'Timeslot has been added'], 200);
         } else {
-            return Response::json(['error' => 'A system error occurred'], 500);
+            return response()->json(['error' => 'A system error occurred'], 500);
         }
     }
 
@@ -114,9 +114,9 @@ class TimeslotsController extends Controller
             $timeslot->from = trim($timeParts[0]);
             $timeslot->to = trim($timeParts[1]);
 
-            return Response::json($timeslot, 200);
+            return response()->json($timeslot, 200);
         } else {
-            return Response::json(['error' => 'Timeslot not found'], 404);
+            return response()->json(['error' => 'Timeslot not found'], 404);
         }
     }
 
@@ -131,7 +131,7 @@ class TimeslotsController extends Controller
         $timeslot = Timeslot::find($id);
 
         if (!$timeslot) {
-            return Response::json(['errors' => ['Timeslot not found']], 404);
+            return response()->json(['errors' => ['Timeslot not found']], 404);
         }
 
         $rules = [
@@ -151,7 +151,7 @@ class TimeslotsController extends Controller
             ->first();
 
         if ($exists) {
-            return Response::json(['errors' => ['This timeslot already exists']], 422);
+            return response()->json(['errors' => ['This timeslot already exists']], 422);
         }
 
         $data = $request->all();
@@ -161,18 +161,18 @@ class TimeslotsController extends Controller
 
         foreach ($timeslots as $timeslot) {
             if (($timeslot->id != $id) && $timeslot->containsPeriod($data['time'])) {
-                $errors = [ $data['time'] . ' falls within another timeslot (' . $timeslot->time
+                $errors = [$data['time'] . ' falls within another timeslot (' . $timeslot->time
                     . ').Please adjust timeslots'];
-                return Response::json(['errors' => $errors], 422);
+                return response()->json(['errors' => $errors], 422);
             }
         }
 
         if ($this->service->update($id, $data)) {
             event(new TimeslotsUpdated());
-            return Response::json(['message' => 'Timeslot updated'], 200);
+            return response()->json(['message' => 'Timeslot updated'], 200);
         }
 
-        return Response::json(['error' => 'A system error occurred'], 500);
+        return response()->json(['error' => 'A system error occurred'], 500);
     }
 
     /**
@@ -185,14 +185,14 @@ class TimeslotsController extends Controller
         $timeslot = Timeslot::find($id);
 
         if (!$timeslot) {
-            return Response::json(['error' => 'Timeslot not found'], 404);
+            return response()->json(['error' => 'Timeslot not found'], 404);
         }
 
         if ($this->service->delete($id)) {
             event(new TimeslotsUpdated());
-            return Response::json(['message' => 'Timeslot has been deleted'], 200);
+            return response()->json(['message' => 'Timeslot has been deleted'], 200);
         } else {
-            return Response::json(['error' => 'An unknown system error occurred'], 500);
+            return response()->json(['error' => 'An unknown system error occurred'], 500);
         }
     }
 }

@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use Response;
 use Illuminate\Http\Request;
 use App\Services\CollegeClassesService;
 
@@ -59,7 +58,7 @@ class CollegeClassesController extends Controller
     /**
      * Add a new class to the database
      *
-     * @param Illuminate\Http\Request $request The HTTP request
+     * @param \Illuminate\Http\Request $request The HTTP request
      * @param Illuminate\Http\Response A JSON response
      */
     public function store(Request $request)
@@ -74,9 +73,9 @@ class CollegeClassesController extends Controller
         $class = $this->service->store($request->all());
 
         if ($class) {
-            return Response::json(['message' => 'Class added'], 200);
+            return response()->json(['message' => 'Class added'], 200);
         } else {
-            return Response::json(['error' => 'A system error occurred'], 500);
+            return response()->json(['error' => 'A system error occurred'], 500);
         }
     }
 
@@ -91,9 +90,9 @@ class CollegeClassesController extends Controller
         $class = $this->service->show($id);
 
         if ($class) {
-            return Response::json($class, 200);
+            return response()->json($class, 200);
         } else {
-            return Response::json(['error' => 'Class not found'], 404);
+            return response()->json(['error' => 'Class not found'], 404);
         }
     }
 
@@ -101,7 +100,7 @@ class CollegeClassesController extends Controller
      * Update the class whose id is given
      *
      * @param int $id Id of class
-     * @param Illuminate\Http\Request $request The HTTP request
+     * @param \Illuminate\Http\Request $request The HTTP request
      * @return Illuminate\Http\Response The HTTP response
      */
     public function update($id, Request $request)
@@ -116,12 +115,12 @@ class CollegeClassesController extends Controller
         $class = CollegeClass::find($id);
 
         if (!$class) {
-            return Response::json(['error' => 'Class not found'], 404);
+            return response()->json(['error' => 'Class not found'], 404);
         }
 
         $class = $this->service->update($id, $request->all());
 
-        return Response::json(['message' => 'Class updated'], 200);
+        return response()->json(['message' => 'Class updated'], 200);
     }
 
     /**
@@ -135,13 +134,13 @@ class CollegeClassesController extends Controller
         $class = CollegeClass::find($id);
 
         if (!$class) {
-            return Response::json(['error' => 'Class not found'], 404);
+            return response()->json(['error' => 'Class not found'], 404);
         }
 
         if ($this->service->delete($id)) {
-            return Response::json(['message' => 'Class has been deleted'], 200);
+            return response()->json(['message' => 'Class has been deleted'], 200);
         } else {
-            return Response::json(['error' => 'An unknown system error occurred'], 500);
+            return response()->json(['error' => 'An unknown system error occurred'], 500);
         }
     }
 }
