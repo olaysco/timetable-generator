@@ -73,9 +73,9 @@ class RoomsController extends Controller
         $room = $this->service->store($request->all());
 
         if ($room) {
-            return Response::json(['message' => 'Room added'], 200);
+            return response()->json(['message' => 'Room added'], 200);
         } else {
-            return Response::json(['error' => 'A system error occurred'], 500);
+            return response()->json(['error' => 'A system error occurred'], 500);
         }
     }
 
@@ -90,9 +90,9 @@ class RoomsController extends Controller
         $room = Room::find($id);
 
         if ($room) {
-            return Response::json($room, 200);
+            return response()->json($room, 200);
         } else {
-            return Response::json(['error' => 'Room not found'], 404);
+            return response()->json(['error' => 'Room not found'], 404);
         }
     }
 
@@ -118,12 +118,12 @@ class RoomsController extends Controller
         $room = $this->service->show($id);
 
         if (!$room) {
-            return Response::json(['error' => 'Room not found'], 404);
+            return response()->json(['error' => 'Room not found'], 404);
         }
 
         $room = $this->service->update($id, $request->all());
 
-        return Response::json(['message' => 'Room updated'], 200);
+        return response()->json(['message' => 'Room updated'], 200);
     }
 
     public function destroy($id)
@@ -131,13 +131,13 @@ class RoomsController extends Controller
         $room = Room::find($id);
 
         if (!$room) {
-            return Response::json(['error' => 'Room not found'], 404);
+            return response()->json(['error' => 'Room not found'], 404);
         }
 
         if ($this->service->delete($id)) {
-            return Response::json(['message' => 'Room has been deleted'], 200);
+            return response()->json(['message' => 'Room has been deleted'], 200);
         } else {
-            return Response::json(['error' => 'An unknown system error occurred'], 500);
+            return response()->json(['error' => 'An unknown system error occurred'], 500);
         }
     }
 }

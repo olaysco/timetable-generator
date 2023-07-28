@@ -34,6 +34,7 @@
                                             <input type="text" class="form-control" placeholder="Email" name="email">
                                         </div>
 
+                                        @if (!empty($user->security_question))
                                         <div class="form-group">
                                             <p>{{ $user->security_question->question }}</p>
                                         </div>
@@ -42,6 +43,7 @@
                                             <label>Your Answer</label>
                                             <input type="text" class="form-control" name="security_question_answer">
                                         </div>
+                                        @endif
 
                                         <div class="form-group">
                                             <input type="submit" name="submit" value="SUBMIT" class="btn btn-lg btn-block btn-primary">

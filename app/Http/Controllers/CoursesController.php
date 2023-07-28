@@ -71,9 +71,9 @@ class CoursesController extends Controller
         $course = $this->service->store($request->all());
 
         if ($course) {
-            return Response::json(['message' => 'Course added'], 200);
+            return response()->json(['message' => 'Course added'], 200);
         } else {
-            return Response::json(['error' => 'A system error occurred'], 500);
+            return response()->json(['error' => 'A system error occurred'], 500);
         }
     }
 
@@ -88,9 +88,9 @@ class CoursesController extends Controller
         $course = $this->service->show($id);
 
         if ($course) {
-            return Response::json($course, 200);
+            return response()->json($course, 200);
         } else {
-            return Response::json(['error' => 'Course not found'], 404);
+            return response()->json(['error' => 'Course not found'], 404);
         }
     }
 
@@ -116,12 +116,12 @@ class CoursesController extends Controller
         $course = $this->service->show($id);
 
         if (!$course) {
-            return Response::json(['error' => 'Course not found'], 404);
+            return response()->json(['error' => 'Course not found'], 404);
         }
 
         $course = $this->service->update($id, $request->all());
 
-        return Response::json(['message' => 'Course updated'], 200);
+        return response()->json(['message' => 'Course updated'], 200);
     }
 
     /**
@@ -134,13 +134,13 @@ class CoursesController extends Controller
         $course = Course::find($id);
 
         if (!$course) {
-            return Response::json(['error' => 'Course not found'], 404);
+            return response()->json(['error' => 'Course not found'], 404);
         }
 
         if ($this->service->delete($id)) {
-            return Response::json(['message' => 'Course has been deleted'], 200);
+            return response()->json(['message' => 'Course has been deleted'], 200);
         } else {
-            return Response::json(['error' => 'An unknown system error occurred'], 500);
+            return response()->json(['error' => 'An unknown system error occurred'], 500);
         }
     }
 }
