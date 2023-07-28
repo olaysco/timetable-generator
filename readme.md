@@ -1,5 +1,8 @@
 ## About
 
+![hhh](https://github.com/olaysco/timetable-generator/assets/7990807/cab77421-b70e-4402-b825-5a61fa619584)
+
+
 This project is a web application designed to facilitate timetable generation for a college. Users can input the necessary data, and the application utilizes a genetic algorithm to generate timetables on demand. The development of this web application involves using the Laravel PHP framework and jQuery.
 
 The timetable generation process occurs as a background job within Laravel when users request timetables.
