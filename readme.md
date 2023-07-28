@@ -1,64 +1,67 @@
 ## About
 
-This project is a web application that allows a user to enter data required for
-generating timetables for a college and then uses that data for generating timetables
-on demand.
+This project is a web application designed to facilitate timetable generation for a college. Users can input the necessary data, and the application utilizes a genetic algorithm to generate timetables on demand. The development of this web application involves using the Laravel PHP framework and jQuery.
 
-The web application is developed using Laravel PHP framework and Jquery.
+The timetable generation process occurs as a background job within Laravel when users request timetables.
 
-The timetable generation is done using a genetic algorithm that runs as a Laravel
-job in the background when timetables are requested.
-
-The way forward for this project is de-coupling the genetic algorithm into a re-usable
-library that can easily be plugged into other applications. The UX can also be improved
-further.
+Looking ahead, the project aims to improve its architecture by decoupling the genetic algorithm and transforming it into a reusable library that can be integrated into other applications. Additionally, there are plans to enhance the user experience further.
 
 ## Installation Steps
 
-The application requires PHP 7.0 - PHP 7.4, PHP 8.0 is not currently supported.
+To get started with the application, follow these installation steps:
 
-clone the repository
+1. Ensure you have PHP 8.1+ installed.
 
-```
-git clone git@github.com:olaysco/timetable-generator.git
-```
+2. Clone the repository using the following command:
 
-switch to the directory
+   ```
+   git clone git@github.com:olaysco/timetable-generator.git
+   ```
 
-```
-cd timetable-generator
-```
+3. Move into the project directory:
 
-Install dependencies
+   ```
+   cd timetable-generator
+   ```
 
-```
-composer install
-```
+4. Install the required dependencies by running:
 
-create env file
+   ```
+   composer install
+   ```
 
-```
-cp .env.example .env
-```
+5. Create an environment file:
 
-generate application key
+   ```
+   cp .env.example .env
+   ```
 
-```
-php artisan key:generate
-```
+6. Generate the application key:
 
-Create a local DB and update the .env file with the DB credentials
+   ```
+   php artisan key:generate
+   ```
 
-migrate the database
+7. Create a local database and update the `.env` file with the database credentials.
 
-```
-php artisan migrate
-```
+8. Run the database migration to set up the necessary tables:
 
-run the application seeder
+   ```
+   php artisan migrate
+   ```
 
-```
-php artisan db:seed
-```
+9. Seed the application with initial data:
 
-Navigate to the application URL, if asked for a password: the default password is `admin`
+   ```
+   php artisan db:seed
+   ```
+
+10. Access the application URL in your web browser. If prompted for a password, use the default password: `admin`.
+
+11. Before generating timetables, configure the Queue driver in the `.env` file. Refer to the Laravel documentation on queues for more information: https://laravel.com/docs/10.x/queues#database. Using the `sync` driver will not work due to the time-consuming nature of the Genetic Algorithm.
+
+12. Start the queue to enable timetable generation:
+
+    ```
+    php artisan queue:listen --timeout=0
+    ```
