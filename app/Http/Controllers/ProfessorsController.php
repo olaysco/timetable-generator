@@ -79,9 +79,9 @@ class ProfessorsController extends Controller
         $professor = $this->service->store($request->all());
 
         if ($professor) {
-            return Response::json(['message' => 'Professor added'], 200);
+            return response()->json(['message' => 'Professor added'], 200);
         } else {
-            return Response::json(['error' => 'An unknown system error occurred'], 500);
+            return response()->json(['error' => 'An unknown system error occurred'], 500);
         }
     }
 
@@ -96,9 +96,9 @@ class ProfessorsController extends Controller
         $professor = $this->service->show($id);
 
         if ($professor) {
-            return Response::json($professor, 200);
+            return response()->json($professor, 200);
         } else {
-            return Response::json(['errors' => ['Professor not found']], 404);
+            return response()->json(['errors' => ['Professor not found']], 404);
         }
     }
 
@@ -113,7 +113,7 @@ class ProfessorsController extends Controller
         $professor = Professor::find($id);
 
         if (!$professor) {
-            return Response::json(['errors' => ['Professor does not exist']], 404);
+            return response()->json(['errors' => ['Professor does not exist']], 404);
         }
 
         $rules = [
@@ -128,7 +128,7 @@ class ProfessorsController extends Controller
 
         $professor = $this->service->update($id, $request->all());
 
-        return Response::json(['message' => 'Professor updated'], 200);
+        return response()->json(['message' => 'Professor updated'], 200);
     }
 
 
@@ -142,13 +142,13 @@ class ProfessorsController extends Controller
         $professor = Professor::find($id);
 
         if (!$professor) {
-            return Response::json(['error' => 'Professor not found'], 404);
+            return response()->json(['error' => 'Professor not found'], 404);
         }
 
         if ($this->service->delete($id)) {
-            return Response::json(['message' => 'Professor has been deleted'], 200);
+            return response()->json(['message' => 'Professor has been deleted'], 200);
         } else {
-            return Response::json(['error' => 'An unknown system error occurred'], 500);
+            return response()->json(['error' => 'An unknown system error occurred'], 500);
         }
     }
 }

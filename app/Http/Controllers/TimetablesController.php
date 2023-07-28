@@ -2,18 +2,21 @@
 
 namespace App\Http\Controllers;
 
-use Auth;
-use Response;
-use Storage;
 use Illuminate\Http\Request;
 use App\Services\TimetableService;
 use App\Events\TimetablesRequested;
 
 use App\Models\Day;
 use App\Models\Timetable;
+use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class TimetablesController extends Controller
 {
+
+    protected TimetableService $service;
+
     /**
      * Create a new instance of this controller and set up
      * middlewares on this controller methods
@@ -41,7 +44,7 @@ class TimetablesController extends Controller
      * Create a new timetable object and hand over to genetic algorithm
      * to generate
      *
-     * @param Illuminate\Http\Request $request The HTTP request
+     * @param \Illuminate\Http\Request $request The HTTP request
      */
     public function store(Request $request)
     {
@@ -62,7 +65,7 @@ class TimetablesController extends Controller
         $days = Day::all();
 
         foreach ($days as $day) {
-            if ($request->has('day_' . $day->id)){
+            if ($request->has('day_' . $day->id)) {
                 $dayIds[] = $day->id;
             }
         }
@@ -72,13 +75,13 @@ class TimetablesController extends Controller
         }
 
         if (count($errors)) {
-            return Response::json(['errors' => $errors], 422);
+            return response()->json(['errors' => $errors], 422);
         }
 
         $otherChecks = $this->service->checkCreationConditions();
 
         if (count($otherChecks)) {
-            return Response::json(['errors' => $otherChecks], 422);
+            return response()->json(['errors' => $otherChecks], 422);
         }
 
         $timetable = Timetable::create([
@@ -94,7 +97,7 @@ class TimetablesController extends Controller
 
         event(new TimetablesRequested($timetable));
 
-        return Response::json(['message' => 'Timetables are being generated.Check back later'], 200);
+        return response()->json(['message' => 'Timetables are being generated.Check back later'], 200);
     }
 
     /**

@@ -10,6 +10,7 @@ use Illuminate\Foundation\Bus\Dispatchable;
 
 use App\Models\Professor;
 use App\Notifications\NewTimetablesGenerated;
+use Illuminate\Support\Facades\Log;
 
 class NotifyProfessors implements ShouldQueue
 {
@@ -35,7 +36,7 @@ class NotifyProfessors implements ShouldQueue
     public function handle()
     {
         $professorIds = $this->timetable->schedules()->pluck('professor_id');
-        \Log::info($professorIds);
+        Log::info($professorIds);
 
         $notifiableProfessors = Professor::whereNotNull('email')
             ->where('email', '!=', '')

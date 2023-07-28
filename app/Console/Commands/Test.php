@@ -7,6 +7,7 @@ use App\Services\GeneticAlgorithm\TimetableGA;
 
 use Illuminate\Console\Command;
 use App\Jobs\GenerateTimetable;
+use Illuminate\Support\Facades\Log;
 
 class Test extends Command
 {
@@ -33,7 +34,7 @@ class Test extends Command
     {
         parent::__construct();
         //$this->timetable = Timetable::create([
-          //  'name' => 'Automatic', 'user_id' => 1]);
+        //  'name' => 'Automatic', 'user_id' => 1]);
         //$this->timetable->days()->sync([1,2,3,4,5]);
     }
 
@@ -44,7 +45,7 @@ class Test extends Command
      */
     public function handle()
     {
-        \Log::info('Generating timetable');
+        Log::info('Generating timetable');
         $timetableGA = new TimetableGA($this->timetable);
         $timetableGA->run();
         //dispatch(new GenerateTimetable());
