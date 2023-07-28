@@ -11,6 +11,7 @@ use App\Models\Timetable as TimetableModel;
 use App\Models\Professor as ProfessorModel;
 use App\Models\CollegeClass as CollegeClassModel;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 
 class TimetableGA
 {
@@ -149,79 +150,83 @@ class TimetableGA
      */
     public function run()
     {
-        $maxGenerations = 1500;
+        try {
+            $maxGenerations = 1500;
 
-        $timetable = $this->initializeTimetable();
+            $timetable = $this->initializeTimetable();
 
-        $algorithm = new GeneticAlgorithm(100, 0.01, 0.9, 2, 10);
+            $algorithm = new GeneticAlgorithm(100, 0.01, 0.9, 2, 10);
 
-        $population = $algorithm->initPopulation($timetable);
+            $population = $algorithm->initPopulation($timetable);
 
-        $algorithm->evaluatePopulation($population, $timetable);
-
-        // Keep track of current generation
-        $generation = 1;
-
-        while (
-            !$algorithm->isTerminationConditionMet($population)
-            && !$algorithm->isGenerationsMaxedOut($generation, $maxGenerations)
-        ) {
-            $fittest = $population->getFittest(0);
-
-            print "Generation: " . $generation . "(" . $fittest->getFitness() . ") - ";
-            print $fittest;
-            print "\n";
-
-            // Apply crossover
-            $population = $algorithm->crossoverPopulation($population);
-
-            // Apply mutation
-            $population = $algorithm->mutatePopulation($population, $timetable);
-
-            // Evaluate Population
             $algorithm->evaluatePopulation($population, $timetable);
 
-            // Increment current
-            $generation++;
+            // Keep track of current generation
+            $generation = 1;
 
-            // Cool temperature of GA for simulated annealing
-            $algorithm->coolTemperature();
-        }
+            while (
+                !$algorithm->isTerminationConditionMet($population)
+                && !$algorithm->isGenerationsMaxedOut($generation, $maxGenerations)
+            ) {
+                $fittest = $population->getFittest(0);
 
-        $solution =  $population->getFittest(0);
-        $scheme = $timetable->getScheme();
-        $timetable->createClasses($solution);
-        $classes = $timetable->getClasses();
+                print "Generation: " . $generation . "(" . $fittest->getFitness() . ") - ";
+                print $fittest;
+                print "\n";
 
-        // Update the timetable data in the DB
-        $this->timetable->update([
-            'chromosome' => $solution->getChromosomeString(),
-            'fitness' => $solution->getFitness(),
-            'generations' => $generation,
-            'scheme' => $scheme,
-            'status' => 'COMPLETED'
-        ]);
+                // Apply crossover
+                $population = $algorithm->crossoverPopulation($population);
 
-        // Save scheduled classes' information for professors
-        foreach ($classes as $class) {
-            $groupId = $class->getGroupId();
-            $timeslot = $timetable->getTimeslot($class->getTimeslotId());
-            $dayId = $timeslot->getDayId();
-            $timeslotId = $timeslot->getTimeslotId();
-            $professorId = $class->getProfessorId();
-            $moduleId = $class->getModuleId();
-            $roomId = $class->getRoomId();
+                // Apply mutation
+                $population = $algorithm->mutatePopulation($population, $timetable);
 
-            $this->timetable->schedules()->create([
-                'day_id' => $dayId,
-                'timeslot_id' => $timeslotId,
-                'professor_id' => $professorId,
-                'course_id' => $moduleId,
-                'class_id' => $groupId,
-                'room_id' => $roomId
+                // Evaluate Population
+                $algorithm->evaluatePopulation($population, $timetable);
+
+                // Increment current
+                $generation++;
+
+                // Cool temperature of GA for simulated annealing
+                $algorithm->coolTemperature();
+            }
+
+            $solution =  $population->getFittest(0);
+            $scheme = $timetable->getScheme();
+            $timetable->createClasses($solution);
+            $classes = $timetable->getClasses();
+
+            // Update the timetable data in the DB
+            $this->timetable->update([
+                'chromosome' => $solution->getChromosomeString(),
+                'fitness' => $solution->getFitness(),
+                'generations' => $generation,
+                'scheme' => $scheme,
+                'status' => 'COMPLETED'
             ]);
-        }
 
-        event(new TimetablesGenerated($this->timetable));
+            // Save scheduled classes' information for professors
+            foreach ($classes as $class) {
+                $groupId = $class->getGroupId();
+                $timeslot = $timetable->getTimeslot($class->getTimeslotId());
+                $dayId = $timeslot->getDayId();
+                $timeslotId = $timeslot->getTimeslotId();
+                $professorId = $class->getProfessorId();
+                $moduleId = $class->getModuleId();
+                $roomId = $class->getRoomId();
+
+                $this->timetable->schedules()->create([
+                    'day_id' => $dayId,
+                    'timeslot_id' => $timeslotId,
+                    'professor_id' => $professorId,
+                    'course_id' => $moduleId,
+                    'class_id' => $groupId,
+                    'room_id' => $roomId
+                ]);
+            }
+
+            event(new TimetablesGenerated($this->timetable));
+        } catch (\Throwable $th) {
+            Log::error("Error while generating timetable " . $th->getMessage(), ['trace' => $th->getTrace()]);
+        }
     }
 }
